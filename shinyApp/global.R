@@ -43,13 +43,26 @@ View(subsetAge)
 
 # Alcohol use by education status
 subsetEdu <- frequencyDist2018[c(27, 28, 29, 30), ]
-colnames(subsetEdu)[colnames(subsetEdu) == 'Selected characteristic'] <- 'Education Level'
+
+#colnames(subsetEdu)[colnames(subsetEdu) == 'Selected characteristic'] <- 'Education Level'
 colnames(subsetEdu)[colnames(subsetEdu) == 'Lifetime abstainer1'] <- 'Lifetime Abstainer'
 colnames(subsetEdu)[colnames(subsetEdu) == 'Former infrequent1'] <- 'Former Infrequent'
 colnames(subsetEdu)[colnames(subsetEdu) == 'Former regular1'] <- 'Former Regular'
 colnames(subsetEdu)[colnames(subsetEdu) == 'Current infrequent1'] <- 'Current Infrequent'
 colnames(subsetEdu)[colnames(subsetEdu) == 'Current regular1'] <- 'Current Regular'
-View(subsetEdu)
+
+subsetEdu <- subsetEdu %>%
+  select('Selected characteristic', 'Lifetime Abstainer', 'Former Infrequent', 'Former Regular', 'Current Infrequent', 'Current Regular')
+
+subsetEdu2 <- data.frame(t(subsetEdu[-1]))
+colnames(subsetEdu2)[colnames(subsetEdu2) == 'X1'] <- 'Less than a high school diploma'
+colnames(subsetEdu2)[colnames(subsetEdu2) == 'X2'] <- 'High school or GED'
+colnames(subsetEdu2)[colnames(subsetEdu2) == 'X3'] <- 'Some college'
+colnames(subsetEdu2)[colnames(subsetEdu2) == 'X4'] <- 'Bachelors degree or higher'
+
+subsetEdu2$Type = rownames(subsetEdu2)
+
+View(subsetEdu2)
 
 # Alcohol use by employment status
 subsetEmp <- frequencyDist2018[c(32, 33, 34, 35, 36), ]
@@ -103,14 +116,11 @@ View(dataARDI)
 
 
 
-#testing 11111
 
 
 
-#test test testing
 
 
-#hi
 
 
 
