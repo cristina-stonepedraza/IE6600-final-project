@@ -67,3 +67,4 @@ createPieChart <- function(df, colName) {
     theme_bw() +
     labs(title = paste0("Pie Chart of ", colName), y = "Frequency")
 }
+
