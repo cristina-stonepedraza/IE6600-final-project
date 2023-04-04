@@ -17,3 +17,4 @@ createPieChart <- function(df, colName) {
 }
 
 createPieChart(prac2, "Freq")
+createPieChart(subsetAge, "Current regular1")

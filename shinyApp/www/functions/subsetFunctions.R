@@ -31,7 +31,7 @@ chooseSub <- function(df, colName){
     theme(axis.text.x = element_text(angle = 45, vjust = 0.5))
 }
 
-chooseSub(subsetEdu2, "X1")
+chooseSub(subsetEdu2, "Some college")
 
 # Practice pie chart 
 #prac1 <- subsetEdu2 %>%
