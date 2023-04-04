@@ -1,11 +1,10 @@
-library(ggplot2)
+#' @title: PieChart
+#' @example createPieChart(subsetEdu, "Some college")
 
-# Create pie chart of "Some College" people frequency of drinking
-ggplot( data= prac2) + 
-  geom_col(mapping =  aes(x =  "", y = Freq, fill = Type)) +
-  coord_polar(theta = "y") +
-  theme_bw()+
-  labs(title = "Pie Chart of Drinking Frequency for Some College Education Status", y = "Frequency")
+#' Function to create a pie chart based on the demographic subset 
+#' that the user chooses to examine. 
+
+library(ggplot2)
 
 # Function of Pie Chart
 createPieChart <- function(df, colName) {
@@ -16,5 +15,9 @@ createPieChart <- function(df, colName) {
     labs(title = paste0("Pie Chart of ", colName), y = "Frequency")
 }
 
+<<<<<<< HEAD
 createPieChart(prac2, "Freq")
 createPieChart(subsetAge, "Current regular1")
+=======
+createPieChart(subsetEdu, "Some college")
+>>>>>>> be5e66cb253a0f2dfd4f3cef409870c23b877cb2
