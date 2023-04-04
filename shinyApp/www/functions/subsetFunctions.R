@@ -24,16 +24,14 @@ ggplot(prac2, aes(x = Type, y = Freq, fill = Type)) +
 # Function - almost works (can't get line 30 to work properly, gives weird y-axis)
 
 chooseSub <- function(df, colName){
-  newSub <- df %>%
-    select(Type, all_of(colName))
-  ggplot(newSub, aes(x = Type, y = !!ensym(colName), fill = Type)) + 
+  ggplot(df, aes(x = Type, y = .data[[colName]], fill = Type)) + 
     geom_bar(stat = "identity") +
     labs(title = "Frequency of Drinking Habits\n", x = "\nHabit", y = "Frequency\n") +
     theme_classic() + 
     theme(axis.text.x = element_text(angle = 45, vjust = 0.5))
 }
 
-
+chooseSub(subsetEdu2, "X1")
 
 # Practice pie chart 
 #prac1 <- subsetEdu2 %>%
