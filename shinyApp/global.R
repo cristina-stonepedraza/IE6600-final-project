@@ -188,9 +188,3 @@ ARDI <- read_csv("~/VSCode/NEU/IE6600/Project/IE6600-final-project/shinyApp/Alco
 # Keep only data we need 
 dataARDI <- ARDI %>%
   select(LocationAbbr, LocationDesc, ConditionType, Category, Cause_of_Death, ConsumptionPattern, AgeGroup)
-View(dataARDI)
-
-
-
-
-

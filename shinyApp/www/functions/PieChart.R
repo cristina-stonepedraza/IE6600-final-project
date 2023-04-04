@@ -14,10 +14,3 @@ createPieChart <- function(df, colName) {
     theme_bw() +
     labs(title = paste0("Pie Chart of ", colName), y = "Frequency")
 }
-
-<<<<<<< HEAD
-createPieChart(prac2, "Freq")
-createPieChart(subsetAge, "Current regular1")
-=======
-createPieChart(subsetEdu, "Some college")
->>>>>>> be5e66cb253a0f2dfd4f3cef409870c23b877cb2
