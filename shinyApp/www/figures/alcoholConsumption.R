@@ -31,3 +31,8 @@ excessiveAlcoholUsePlot <- ggplot(data = excessUse) +
   coord_polar(theta = "y") +
   theme_bw() + 
   labs(title = paste0("Alcohol-Related Deaths Due to Excessive Alcohol Use (2015-2019)"), y = "Frequency")
+
+anyAlcoholUsePlot
+
+excessiveAlcoholUsePlot
+

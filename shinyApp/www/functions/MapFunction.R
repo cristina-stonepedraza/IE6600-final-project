@@ -15,3 +15,9 @@ data <- alcoholByStateGallons
 var <- "alcoholConsumptionGallons"
 color <- "darkgreen"
 choropleth_map(data, var, color)
+
+
+data <- subsetAlcoholDeath
+var <- "Number_of_Death"
+color <- "darkblue"
+choropleth_map(data, var, color)

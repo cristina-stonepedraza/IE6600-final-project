@@ -188,3 +188,12 @@ ARDI <- read_csv("~/VSCode/NEU/IE6600/Project/IE6600-final-project/shinyApp/Alco
 # Keep only data we need 
 dataARDI <- ARDI %>%
   select(LocationAbbr, LocationDesc, ConditionType, Category, Cause_of_Death, ConsumptionPattern, AgeGroup)
+
+# Alcohol related death
+subsetAlcoholDeath <- ARDI %>% 
+  select(LocationDesc, Category) %>%
+  group_by(LocationDesc, Category) %>% 
+  mutate (Number_of_Death = n()) 
+subsetAlcoholDeath <- unique(subsetAlcoholDeath) %>% 
+  spread (key = Category, value = Number_of_Death)
+subsetAlcoholDeath <- subsetAlcoholDeath [, -which(names(subsetAlcoholDeath) == "Total")]
