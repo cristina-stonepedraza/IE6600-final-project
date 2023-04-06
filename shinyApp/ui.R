@@ -1,36 +1,30 @@
-ui <- fluidPage(titlePanel("hw5 - IE6600"),
-                sidebarLayout(
-                  sidebarPanel(
-                    width = 2,
-                    selectInput(
-                      width = "100%",
-                      inputId = "dbList1",
-                      label = "Default Dataset List",
-                      choices = c(choose = "List of data frame...",
-                                  "mpg", "diamonds", "msleep"),
-                      selectize = FALSE
-                    ),
-                    uiOutput("obs1"),
-                    
-                    # TODO Problem 3: Add one widget for BIN feature:
-                    ## your code here ##
-                    
-                    actionButton(
-                      inputId = "reset",
-                      label = "Reset Data",
-                      icon = icon("refresh"),
-                      width = "100%"
-                    ),
-                    verbatimTextOutput("aaa")
-                  ),
-                  mainPanel(fluidPage(fluidRow(
-                    column(6,
-                           DT::dataTableOutput("dataSet")),
-                    column(6,
-                           plotOutput(
-                             "plotChart",
-                             width = "100%",
-                             height = "300px"
-                           ))
-                  )))
-                ))
+## app.R ##
+library(shinydashboard)
+
+ui <- dashboardPage(
+  dashboardHeader(title = "Basic dashboard"),
+  dashboardSidebar(),
+  dashboardBody(
+    # Boxes need to be put in a row (or column)
+    fluidRow(
+      box(plotOutput("plot1", height = 250)),
+      
+      box(
+        title = "Controls",
+        sliderInput("slider", "Number of observations:", 1, 100, 50)
+      )
+    )
+  )
+)
+
+server <- function(input, output) {
+  set.seed(122)
+  histdata <- rnorm(500)
+  
+  output$plot1 <- renderPlot({
+    data <- histdata[seq_len(input$slider)]
+    hist(data)
+  })
+}
+
+shinyApp(ui, server)

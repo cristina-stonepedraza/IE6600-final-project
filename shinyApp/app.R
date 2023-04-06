@@ -1,122 +1,29 @@
-#Remember use install.packages("shinydashboard") to install the dashboard first.
-
-library(DT)
+## app.R ##
 library(shiny)
-library(tidyverse)
+library(shinydashboard)
 
-# functions
-source("www/functions/AgeGroup.R")
-source("www/functions/statePlot.R")
-source("www/functions/MapFunction.R")
-source("www/functions/PieChart.R")
-source("www/functions/subsetFunctions.R")
-
-
-# ui design ----
-
-ui <- fluidPage(titlePanel("IE6600-Final Project-Team2"),
-                sidebarLayout(
-                  sidebarPanel(
-                    width = 2,
-                    selectInput(
-                      width = "100%",
-                      inputId = "dbList1",
-                      label = "Default Dataset List",
-                      choices = c(choose = "List of data frame...",
-                                  "mpg", "diamonds", "msleep"),
-                      selectize = FALSE
-                    ),
-                    uiOutput("obs1"),
-                    uiOutput("bins"),
-                    actionButton(
-                      inputId = "reset",
-                      label = "Reset Data",
-                      icon = icon("refresh"),
-                      width = "100%"
-                    ),
-                    verbatimTextOutput("aaa")
-                  ),
-                  mainPanel(fluidPage(fluidRow(
-                    column(6,
-                           DT::dataTableOutput("dataSet")),
-                    column(6,
-                           plotOutput(
-                             "plotChart",
-                             width = "100%",
-                             height = "300px"
-                           ))
-                  )))
-                ))
-
-server <- function(input, output) {
-  values <- reactiveValues(
-    tbl = NULL,
-    obsList = NULL,
-    plot.df = NULL,
-    bins = NULL
+ui <- dashboardPage(title = "Effects of Excessive Alcohol Use in the U.S.",
+  dashboardHeader(title = "Effects of Excessive Alcohol Use in the U.S."),
+  dashboardSidebar(),
+  dashboardBody(
+    # Boxes need to be put in a row (or column)
+    fluidRow(
+      box(plotOutput("plot1", height = 250)),
+      
+      box(
+        title = "Controls",
+        sliderInput("slider", "Number of observations:", 1, 100, 50)
+      )
+    )
   )
+)
+server <- function(input, output){ 
+  set.seed(122)
+  histdata <- rnorm(500)
   
-  observeEvent(input$dbList1, {
-    if (!NA %in% match(input$dbList1, c("mpg", "diamonds", "msleep"))) {
-      values$tbl <- as.data.frame(get(input$dbList1))
-      values$obsList <- colnames(values$tbl)
-      output$obs1 <- renderUI({
-        selectInput(
-          inputId = "observationInput1",
-          label = "1st observation",
-          choices =  values$obsList
-        )
-      })
-    }
-  })
-  
-  observeEvent(input$observationInput1, {
-    values$plot.df <-
-      as.data.frame(values$tbl[, input$observationInput1])
-    colnames(values$plot.df) <- input$observationInput1
-    output$dataSet <- DT::renderDataTable({
-      values$tbl
-    },
-    extensions = c('Scroller', 'FixedColumns'),
-    options = list(
-      deferRender = TRUE,
-      scrollX = TRUE,
-      scrollY = 200,
-      scroller = TRUE,
-      dom = 'Bfrtip',
-      fixedColumns = TRUE
-    ))
-    
-    if (is.numeric(values$tbl[, input$observationInput1])) {
-      output$bins <- renderUI({
-        sliderInput(
-          inputId = "bins",
-          label = "Number of bins:",
-          min = 1,
-          max = 50,
-          value = 30
-        )
-      })
-    } else{
-      output$bins <- NULL
-    }
-    
-  })
-  observe({
-    values$bins <- input$bins
-    output$plotChart <- renderPlot({
-      shiny::validate(need(values$tbl, ""))
-      switch_chart(values$plot.df , colnames(values$plot.df), b = values$bins)
-    })
-  })
-  
-  observeEvent(input$reset, {
-    values$tbl <- NULL
-    output$obs1 <- NULL
-  })
-  
-  output$aaa <- renderPrint({
-    values$bins
+  output$plot1 <- renderPlot({
+    data <- histdata[seq_len(input$slider)]
+    hist(data)
   })
 }
 
