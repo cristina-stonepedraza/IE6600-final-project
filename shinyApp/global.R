@@ -12,13 +12,14 @@ library(ggplot2)
 library(scales)
 library(tidyr)
 library(haven)
+library(here)
 
 ### Step 1 - Data import, tidy, and transform data for analysis
 
 ### First table - Alcohol Consumed By State from WorldPopulationReview 
 # (https://worldpopulationreview.com/state-rankings/alcohol-consumption-by-state)
 # Goal is to extract the gallons of consumption per state 
-alcoholByState <- read_csv("~/VSCode/NEU/IE6600/Project/IE6600-final-project/shinyApp/data.csv")
+alcoholByState <- read_csv(here("data.csv"))
 
 # Select - we just want the state and gallons consumed columns (gallons per person, per year)
 # Make tidy - this dataset is already very simple, and tidy
