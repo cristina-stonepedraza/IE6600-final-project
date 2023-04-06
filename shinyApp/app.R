@@ -1,15 +1,15 @@
-
+#Remember use install.packages("shinydashboard") to install the dashboard first.
 
 library(DT)
 library(shiny)
 library(tidyverse)
 
 # functions
-source("/Users/cherryj./Desktop/IE6600-Computation and Visualization for Analytics/Project/IE6600-final-project/shinyApp/www/functions/AgeGroup.R")
-source("/Users/cherryj./Desktop/IE6600-Computation and Visualization for Analytics/Project/IE6600-final-project/shinyApp/www/functions/statePlot.R")
-source("/Users/cherryj./Desktop/IE6600-Computation and Visualization for Analytics/Project/IE6600-final-project/shinyApp/www/functions/MapFunction.R")
-source("/Users/cherryj./Desktop/IE6600-Computation and Visualization for Analytics/Project/IE6600-final-project/shinyApp/www/functions/PieChart.R")
-source("/Users/cherryj./Desktop/IE6600-Computation and Visualization for Analytics/Project/IE6600-final-project/shinyApp/www/functions/subsetFunctions.R")
+source("www/functions/AgeGroup.R")
+source("www/functions/statePlot.R")
+source("www/functions/MapFunction.R")
+source("www/functions/PieChart.R")
+source("www/functions/subsetFunctions.R")
 
 
 # ui design ----
