@@ -19,7 +19,7 @@ library(here)
 ### First table - Alcohol Consumed By State from WorldPopulationReview 
 # (https://worldpopulationreview.com/state-rankings/alcohol-consumption-by-state)
 # Goal is to extract the gallons of consumption per state 
-alcoholByState <- read_csv(here("data.csv"))
+alcoholByState <- read_csv(here("shinyApp/data.csv"))
 
 # Select - we just want the state and gallons consumed columns (gallons per person, per year)
 # Make tidy - this dataset is already very simple, and tidy
@@ -27,7 +27,7 @@ alcoholByStateGallons <- alcoholByState %>%
   select(state, alcoholConsumptionGallons)
 
 ### Second table - 2018 Frequency Distribution by Characteristic 
-frequencyDist2018 <- read_excel("~/VSCode/NEU/IE6600/Project/IE6600-final-project/shinyApp/2018-SHS-data.xlsx")
+frequencyDist2018 <- read_excel(here("shinyApp/2018-SHS-data.xlsx"))
 
 # Create subsets and make tidy
 # Alcohol use by age group
@@ -183,7 +183,7 @@ colnames(subsetMarital)[colnames(subsetMarital) == 'X5'] <- 'Living with a partn
 subsetMarital$Type = rownames(subsetMarital)
 
 ### Third table - Alcohol Related Disease Impact  
-ARDI <- read_csv("~/VSCode/NEU/IE6600/Project/IE6600-final-project/shinyApp/Alcohol-Related_Disease_Impact__ARDI__Application_-_Alcohol-Attributable_Deaths.csv")
+ARDI <- read_csv(here("shinyApp/Alcohol-Related_Disease_Impact__ARDI__Application_-_Alcohol-Attributable_Deaths.csv"))
 
 # Subset and Make Tidy 
 # Keep only data we need 
