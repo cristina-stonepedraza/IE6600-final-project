@@ -1,13 +1,13 @@
 # app.R
 
-#library(shiny)
-#library(shinydashboard)
+library(shiny)
+library(shinydashboard)
 
 #source("www/figures/gallonChartUS.R")
-#source("www/functions/MapFunction.R")
-#source("www/functions/PieChart.R")
-#source("www/functions/subsetFunctions.R")
-#source("www/functions/Radar.R")
+source("www/functions/MapFunction.R")
+source("www/functions/PieChart.R")
+source("www/functions/subsetFunctions.R")
+source("www/functions/Radar.R")
 
 
 #ui
@@ -125,7 +125,17 @@ ui <- dashboardPage(skin = "red",
         
         tabItem(tabName = "test", 
               h2("TEST"),
-              
+              #test info box
+              # infoBoxes with fill=TRUE
+              fluidRow(
+                infoBox("New Orders", 10 * 2, icon = icon("credit-card"), fill = TRUE),
+                infoBoxOutput("progressBox2"),
+                infoBoxOutput("approvalBox2")
+              ),
+              fluidRow(
+                # Clicking this will increment the progress amount
+                box(width = 4, actionButton("count", "Increment progress"))
+              ),
               # Radar
               fluidRow(
                 column(width = 4,
@@ -195,7 +205,19 @@ server <- function(input, output, session) {
   #output$Employee <- renderPlot({
    # chooseSub(stateSubset, input$category4)
  ## })
-  
+  #Testing info box
+  output$progressBox2 <- renderInfoBox({
+    infoBox(
+      "Progress", paste0(25 + input$count, "%"), icon = icon("list"),
+      color = "purple", fill = TRUE
+    )
+  })
+  output$approvalBox2 <- renderInfoBox({
+    infoBox(
+      "Approval", "80%", icon = icon("thumbs-up", lib = "glyphicon"),
+      color = "yellow", fill = TRUE
+    )
+  })
   # Test page Marital radar
   output$MaritalR <- renderPlot({
     # Check if at least one row is selected
