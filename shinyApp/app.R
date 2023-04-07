@@ -6,6 +6,8 @@ library(shinydashboard)
 #source("www/figures/gallonChartUS.R")
 source("www/functions/MapFunction.R")
 source("www/functions/PieChart.R")
+source("www/functions/subsetFunctions.R")
+
 
 ui <- dashboardPage(
   dashboardHeader(title = "Alcohol Use"),
@@ -48,8 +50,8 @@ ui <- dashboardPage(
             collapsible = TRUE,
             plotOutput("regionChart", height = 300))
         )
-      ), 
-      
+      ), # End
+      #3
       tabItem(tabName = "demographics",
         h2("use subset data"),
         fluidRow(
@@ -60,7 +62,7 @@ ui <- dashboardPage(
             plotOutput("EducationChart", height = 300))
         )
       ), 
-      
+      #4
       tabItem(tabName = "effects", 
         h2("use ARDI data"),
         fluidRow(
@@ -69,34 +71,24 @@ ui <- dashboardPage(
             title = "Age", status = "primary", solidHeader = TRUE,
             collapsible = TRUE,
             plotOutput("AgeChart", height = 300))
-        )
+        ),#Emp
+        fluidRow(
+          selectInput("category3", "Select a category", c("Employed", "Full-time", "Part-time", "Not employed but has worked previously","Not employed and has never worked")), 
+          box(
+            title = "Region", status = "primary", solidHeader = TRUE,
+            collapsible = TRUE,
+            plotOutput("Employee", height = 300))
+         )
       )
     )
   )
 )
 
 server <- function(input, output, session) {
-  set.seed(122)
-  histdata <- rnorm(500)
-  
-  output$plot1 <- renderPlot({
-    data <- histdata[seq_len(input$slider)]
-    hist(data)
-  })
-  
+
   output$usPlot <- renderPlot({
     choropleth_map(alcoholByStateGallons, "alcoholConsumptionGallons", "darkgreen")
   })
-  
-  #observe({
-    #updateSelectInput(
-      #session, "subcategory", "Select a region: ", 
-      #choices = switch(input$category,
-        #"1" = c("1a", "1b"), 
-        #"2" = c("2a", "2b")
-      #)
-    #)
-  #})
   
   output$regionChart <- renderPlot({
     createPieChart(subsetRegion, input$category)
@@ -105,9 +97,11 @@ server <- function(input, output, session) {
   output$EducationChart <- renderPlot({
     createPieChart(subsetEdu, input$category1)
   })
-  
   output$AgeChart <- renderPlot({
     createPieChart(subsetAge, input$category2)
+  })
+  output$Employee <- renderPlot({
+    chooseSub(subsetEmp, input$category3)
   })
 }
 
