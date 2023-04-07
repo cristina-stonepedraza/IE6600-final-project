@@ -34,8 +34,8 @@ ui <- dashboardPage(
       
       # Second tab content
       tabItem(tabName = "maps",
-        fluidRow(
               h2("use map and regional data"), 
+        fluidRow(
               box(
                 title = "Gallons Consumed per Person per Year", status = "primary", solidHeader = TRUE,
                 collapsible = TRUE,
