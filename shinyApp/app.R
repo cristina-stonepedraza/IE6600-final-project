@@ -94,7 +94,9 @@ ui <- dashboardPage(skin = "red",
           box(
             title = "Drinking Habits by Age Group", status = "success", solidHeader = TRUE,
             collapsible = TRUE,
-            plotOutput("AgeChart", height = 300))
+            plotOutput("AgeChart", height = 300, width = 600),
+            width = 600
+          )
 #########  ) put two box in one fluidrow. If you want them to be side by side you need a total width <= 12.
         ),#Emp
         
