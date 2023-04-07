@@ -34,30 +34,43 @@ ui <- dashboardPage(
       
       # Second tab content
       tabItem(tabName = "maps",
+        fluidRow(
               h2("use map and regional data"), 
               box(
                 title = "Gallons Consumed per Person per Year", status = "primary", solidHeader = TRUE,
                 collapsible = TRUE,
-                plotOutput("usPlot", height = 300)
+                plotOutput("usPlot", height = 300))
               ),
-        #h2("use map and regional data"), 
-        #fluidRow(
-          #box(plotOutput("usPlot", height = 300))
-          
-        #),
         fluidRow(
-          selectInput("category", "Select a category", c("West", "Midwest", "South", "Northeast")), 
-          box(plotOutput("regionChart", height = 300))
+          selectInput("category", "Select a category: Region", c("West", "Midwest", "South", "Northeast")), 
+          box(
+            title = "Region", status = "primary", solidHeader = TRUE,
+            collapsible = TRUE,
+            plotOutput("regionChart", height = 300))
         )
       ), 
       
       tabItem(tabName = "demographics",
-        h2("use subset data")
+        h2("use subset data"),
+        fluidRow(
+          selectInput("category1", "Select a category: Education", c("Less than a high school diploma", "High school or GED", "Some college", "Bachelors degree or higher")), 
+          box(
+            title = "Education", status = "primary", solidHeader = TRUE,
+            collapsible = TRUE,
+            plotOutput("EducationChart", height = 300))
+        )
       ), 
       
       tabItem(tabName = "effects", 
-        h2("use ARDI data")
-      )
+        h2("use ARDI data"),
+        fluidRow(
+          selectInput("category2", "Select a category: Age", c("18–44", "45–64", "65–74", "75+")), 
+          box(
+            title = "Age", status = "primary", solidHeader = TRUE,
+            collapsible = TRUE,
+            plotOutput("AgeChart", height = 300))
+        )
+      ),
     )
   )
 )
@@ -87,6 +100,14 @@ server <- function(input, output, session) {
   
   output$regionChart <- renderPlot({
     createPieChart(subsetRegion, input$category)
+  })
+  
+  output$EducationChart <- renderPlot({
+    createPieChart(subsetEdu, input$category1)
+  })
+  
+  output$AgeChart <- renderPlot({
+    createPieChart(subsetAge, input$category2)
   })
 }
 
