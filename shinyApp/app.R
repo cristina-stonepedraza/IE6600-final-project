@@ -104,7 +104,7 @@ ui <- dashboardPage(skin = "red",
             title = "Age", status = "success", solidHeader = TRUE,
             collapsible = TRUE,
             plotOutput("AgeChart", height = 300))
-          #) put two box in one fluidrow 
+#########  ) put two box in one fluidrow. If you want them to be side by side you need a total width <= 12.
         ),#Emp
         
         # Create employment status bar chart
