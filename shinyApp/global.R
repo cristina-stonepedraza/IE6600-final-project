@@ -52,7 +52,11 @@ colnames(subsetAge)[colnames(subsetAge) == 'X2'] <- '45-64'
 colnames(subsetAge)[colnames(subsetAge) == 'X3'] <- '65-74'
 colnames(subsetAge)[colnames(subsetAge) == 'X4'] <- '75+'
 
-subsetAge$Type = rownames(subsetAge)
+
+subsetAge_rotated <- t(subsetAge[ , -5])
+rownames(subsetAge_rotated) <- colnames(subsetAge)
+colnames(subsetAge_rotated) <- rownames(subsetAge)
+
 
 # Alcohol use by education status
 subsetEdu <- frequencyDist2018[c(27, 28, 29, 30), ] # <
@@ -79,6 +83,10 @@ colnames(subsetEdu)[colnames(subsetEdu) == 'X4'] <- 'Bachelors degree or higher'
 
 subsetEdu$Type = rownames(subsetEdu)
 
+subsetEdu_rotated <- t(subsetEdu[ , -5])
+rownames(subsetEdu_rotated) <- colnames(subsetEdu)
+colnames(subsetEdu_rotated) <- rownames(subsetEdu)
+
 # Alcohol use by employment status
 subsetEmp <- frequencyDist2018[c(32, 33, 34, 35, 36), ]
 colnames(subsetEmp)[colnames(subsetEmp) == 'Lifetime abstainer1'] <- 'Lifetime Abstainer'
@@ -104,6 +112,10 @@ colnames(subsetEmp)[colnames(subsetEmp) == 'X4'] <- 'Not employed but has worked
 colnames(subsetEmp)[colnames(subsetEmp) == 'X5'] <- 'Not employed and has never worked'
 
 subsetEmp$Type = rownames(subsetEmp)
+
+subsetEmp_rotated <- t(subsetEmp[ , -6])
+rownames(subsetEmp_rotated) <- colnames(subsetEmp)
+colnames(subsetEmp_rotated) <- rownames(subsetEmp)
 
 # Alcohol use by family income 
 subsetFamIncome <- frequencyDist2018[c(38, 39, 40, 41, 42, 43), ]
@@ -132,6 +144,10 @@ colnames(subsetFamIncome)[colnames(subsetFamIncome) == 'X6'] <- '$100,000 or mor
 
 subsetFamIncome$Type = rownames(subsetFamIncome)
 
+subsetFamIncome_rotated <- t(subsetFamIncome[ , -6])
+rownames(subsetFamIncome_rotated) <- colnames(subsetFamIncome)
+colnames(subsetFamIncome_rotated) <- rownames(subsetFamIncome)
+
 # Alcohol use by region
 subsetRegion <- frequencyDist2018[c(72, 73, 74, 75), ]
 colnames(subsetRegion)[colnames(subsetRegion) == 'Lifetime abstainer1'] <- 'Lifetime Abstainer'
@@ -155,6 +171,10 @@ colnames(subsetRegion)[colnames(subsetRegion) == 'X3'] <- 'South'
 colnames(subsetRegion)[colnames(subsetRegion) == 'X4'] <- 'West'
 
 subsetRegion$Type = rownames(subsetRegion)
+
+subsetRegion_rotated <- t(subsetRegion[ , -5])
+rownames(subsetRegion_rotated) <- colnames(subsetRegion)
+colnames(subsetRegion_rotated) <- rownames(subsetRegion)
 
 # Alcohol use by marital status 
 subsetMarital <- frequencyDist2018[c(62, 63, 64, 65, 66), ]
@@ -181,6 +201,10 @@ colnames(subsetMarital)[colnames(subsetMarital) == 'X4'] <- 'Never married'
 colnames(subsetMarital)[colnames(subsetMarital) == 'X5'] <- 'Living with a partner'
 
 subsetMarital$Type = rownames(subsetMarital)
+
+subsetMarital_rotated <- t(subsetMarital[ , -6])
+rownames(subsetMarital_rotated) <- colnames(subsetMarital)
+colnames(subsetMarital_rotated) <- rownames(subsetMarital)
 
 ### Third table - Alcohol Related Disease Impact  
 ARDI <- read_csv("Alcohol-Related_Disease_Impact__ARDI__Application_-_Alcohol-Attributable_Deaths.csv")
