@@ -75,6 +75,14 @@ ui <- dashboardPage(
             title = "Family Income", status = "primary", solidHeader = TRUE,
             collapsible = TRUE,
             plotOutput("FamIncome", height = 300))
+        ),
+        #Marital
+        fluidRow(
+          selectInput("category6", "Select a category: Marital", c("Married", "Widowed", "Divorced or separated", "Never married","Living with a partner")), 
+          box(
+            title = "Marital", status = "primary", solidHeader = TRUE,
+            collapsible = TRUE,
+            plotOutput("Marital", height = 300))
         )
       ), 
       
@@ -133,6 +141,11 @@ server <- function(input, output, session) {
   # Third page Family income pie chart
   output$FamIncome <- renderPlot({
     chooseSub(subsetFamIncome, input$category5)
+  })
+  
+  # Third page Marital pie chart
+  output$Marital <- renderPlot({
+    chooseSub(subsetMarital, input$category6)
   })
   
   # Fourth page age pie chart 
