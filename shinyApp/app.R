@@ -131,13 +131,13 @@ ui <- dashboardPage(skin = "red",
               
               # Radar
               fluidRow(
-                column(width = 6,
+                column(width = 4,
                        selectInput("category_row1", "Alcohol Consumption", c("Current Regular", "Lifetime Abstainer", "Current Infrequent","Former Infrequent","Former Regular"), selected = "Current Regular")
                 ),
-                column(width = 6,
+                column(width = 4,
                        selectizeInput("category_col1", "Marital Status:", choices = c("Married", "Widowed", "Never married","Divorced or separated","Living with a partner"), multiple = TRUE, selected =c("Married", "Widowed", "Never married","Divorced or separated","Living with a partner"))
                 ),
-                box(width = 12, collapsible = TRUE,
+                box(width = 6, collapsible = TRUE,
                        fluidRow(
                          valueBox(
                            "Married", "IDK how to put value on",
