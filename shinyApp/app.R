@@ -34,7 +34,10 @@ ui <- dashboardPage(
       # Second tab content
       tabItem(tabName = "maps",
               h2("use map and regional data"), 
-              box(plotOutput("usPlot", height = 300))
+              box(
+                title = "Gallons Consumed per Person per Year", status = "primary", solidHeader = TRUE,
+                collapsible = TRUE,
+                plotOutput("usPlot", height = 300))
       ), 
       
       tabItem(tabName = "demographics",
