@@ -135,7 +135,7 @@ server <- function(input, output, session) {
   # Fourth page death cause
   #output$Employee <- renderPlot({
    # chooseSub(stateSubset, input$category4)
- # })
+ ## })
   
 }
 
