@@ -5,6 +5,7 @@ library(shinydashboard)
 
 #source("www/figures/gallonChartUS.R")
 source("www/functions/MapFunction.R")
+source("www/functions/PieChart.R")
 
 ui <- dashboardPage(
   dashboardHeader(title = "Alcohol Use"),
@@ -20,21 +21,28 @@ ui <- dashboardPage(
     tabItems(
       # First tab content
       tabItem(tabName = "home",
-              h2("intro to dataset and problem"),
-              fluidRow(
-                box(plotOutput("plot1", height = 250)),
+        h2("intro to dataset and problem"),
+              #fluidRow(
+                #box(plotOutput("plot1", height = 250)),
                 
-                box(
-                  title = "Controls",
-                  sliderInput("slider", "Number of observations:", 1, 100, 50)
-                )
-              )
+                #box(
+                  #title = "Controls",
+                  #sliderInput("slider", "Number of observations:", 1, 100, 50)
+                #)
+              #)
       ),
       
       # Second tab content
       tabItem(tabName = "maps",
-              h2("use map and regional data"), 
-              box(plotOutput("usPlot", height = 300))
+        h2("use map and regional data"), 
+        fluidRow(
+          box(plotOutput("usPlot", height = 300))
+          
+        ),
+        fluidRow(
+          selectInput("category", "Select a category", c("West", "Midwest", "South", "Northeast")), 
+          box(plotOutput("regionChart", height = 300))
+        )
       ), 
       
       tabItem(tabName = "demographics",
@@ -48,7 +56,7 @@ ui <- dashboardPage(
   )
 )
 
-server <- function(input, output) {
+server <- function(input, output, session) {
   set.seed(122)
   histdata <- rnorm(500)
   
@@ -56,11 +64,24 @@ server <- function(input, output) {
     data <- histdata[seq_len(input$slider)]
     hist(data)
   })
+  
   output$usPlot <- renderPlot({
     choropleth_map(alcoholByStateGallons, "alcoholConsumptionGallons", "darkgreen")
   })
+  
+  #observe({
+    #updateSelectInput(
+      #session, "subcategory", "Select a region: ", 
+      #choices = switch(input$category,
+        #"1" = c("1a", "1b"), 
+        #"2" = c("2a", "2b")
+      #)
+    #)
+  #})
+  
+  output$regionChart <- renderPlot({
+    createPieChart(subsetRegion, input$category)
+  })
 }
-
-shinyApp(ui, server)
 
 shinyApp(ui, server)
