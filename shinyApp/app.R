@@ -1,11 +1,10 @@
 # app.R
-install.packages("shinydashboard")
 
 library(shiny)
 library(shinydashboard)
 
-source("www/figures/gallonChartUS.R")
-#source("")
+#source("www/figures/gallonChartUS.R")
+source("www/functions/MapFunction.R")
 
 ui <- dashboardPage(
   dashboardHeader(title = "Alcohol Use"),
@@ -34,7 +33,8 @@ ui <- dashboardPage(
       
       # Second tab content
       tabItem(tabName = "maps",
-              h2("use map and regional data")
+              h2("use map and regional data"), 
+              box(plotOutput("usPlot", height = 300))
       ), 
       
       tabItem(tabName = "demographics",
@@ -56,6 +56,11 @@ server <- function(input, output) {
     data <- histdata[seq_len(input$slider)]
     hist(data)
   })
+  output$usPlot <- renderPlot({
+    choropleth_map(alcoholByStateGallons, "alcoholConsumptionGallons", "darkgreen")
+  })
 }
+
+shinyApp(ui, server)
 
 shinyApp(ui, server)
