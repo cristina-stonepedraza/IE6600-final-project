@@ -64,13 +64,13 @@ ui <- dashboardPage(
       tabItem(tabName = "effects", 
         h2("use ARDI data"),
         fluidRow(
-          selectInput("category2", "Select a category: Age", c("18–44", "45–64", "65–74", "75+")), 
+          selectInput("category2", "Select a category: Age", c("18-44", "45-64", "65-74", "75+")), 
           box(
             title = "Age", status = "primary", solidHeader = TRUE,
             collapsible = TRUE,
             plotOutput("AgeChart", height = 300))
         )
-      ),
+      )
     )
   )
 )
