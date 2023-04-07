@@ -67,6 +67,14 @@ ui <- dashboardPage(
             title = "Education", status = "primary", solidHeader = TRUE,
             collapsible = TRUE,
             plotOutput("EducationChart", height = 300))
+        ),
+        #Family income
+        fluidRow(
+          selectInput("category5", "Select a category: Family income", c("Less than $35,000", "$35,000–$49,999", "$50,000–$74,999", "$75,000–$99,999","$100,000 or more")), 
+          box(
+            title = "Family Income", status = "primary", solidHeader = TRUE,
+            collapsible = TRUE,
+            plotOutput("FamIncome", height = 300))
         )
       ), 
       
@@ -120,6 +128,11 @@ server <- function(input, output, session) {
   # Third page education status pie chart
   output$EducationChart <- renderPlot({
     createPieChart(subsetEdu, input$category1)
+  })
+  
+  # Third page Family income pie chart
+  output$FamIncome <- renderPlot({
+    chooseSub(subsetFamIncome, input$category5)
   })
   
   # Fourth page age pie chart 
