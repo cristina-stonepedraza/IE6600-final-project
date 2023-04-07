@@ -38,12 +38,13 @@ ui <- dashboardPage(
               box(
                 title = "Gallons Consumed per Person per Year", status = "primary", solidHeader = TRUE,
                 collapsible = TRUE,
-                plotOutput("usPlot", height = 300))
-        h2("use map and regional data"), 
-        fluidRow(
-          box(plotOutput("usPlot", height = 300))
+                plotOutput("usPlot", height = 300)
+              ),
+        #h2("use map and regional data"), 
+        #fluidRow(
+          #box(plotOutput("usPlot", height = 300))
           
-        ),
+        #),
         fluidRow(
           selectInput("category", "Select a category", c("West", "Midwest", "South", "Northeast")), 
           box(plotOutput("regionChart", height = 300))
