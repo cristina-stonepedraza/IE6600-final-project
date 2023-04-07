@@ -11,13 +11,13 @@ choropleth_map <- function(data, var, color) {
 }
 
 # example usage
-data <- alcoholByStateGallons
-var <- "alcoholConsumptionGallons"
-color <- "darkgreen"
-choropleth_map(data, var, color)
+#data <- alcoholByStateGallons
+#var <- "alcoholConsumptionGallons"
+#color <- "darkgreen"
+#choropleth_map(data, var, color)
 
 
-data <- subsetAlcoholDeath
-var <- "Number_of_Death"
-color <- "darkblue"
-choropleth_map(data, var, color)
+#data <- subsetAlcoholDeath
+#var <- "Number_of_Death"
+#color <- "darkblue"
+#choropleth_map(data, var, color)

@@ -25,4 +25,4 @@ statePlot <- function(state){
     labs(title = paste0("Pie Chart of Alcohol-Related Deaths for ", state), y = "Frequency")
 }
 
-statePlot("Washington")
+#statePlot("Washington")

@@ -24,10 +24,10 @@ create_pie_chart <- function(data, selected_agegroup, column_name) {
 }
 
 # use function
-selected_agegroup <- "Overall"  # AgeGroup
-column_name <- "Category"  # column name
-pie_chart <- create_pie_chart(data, selected_agegroup, column_name)
+#selected_agegroup <- "Overall"  # AgeGroup
+#column_name <- "Category"  # column name
+#pie_chart <- create_pie_chart(data, selected_agegroup, column_name)
 
 # show
-print(pie_chart)
+#print(pie_chart)
 
