@@ -90,7 +90,15 @@ ui <- dashboardPage(
             title = "Region", status = "primary", solidHeader = TRUE,
             collapsible = TRUE,
             plotOutput("Employee", height = 300))
-         )
+         ),
+        
+        # Create death cause pie chart
+        #fluidRow(
+         # selectInput("category4", "Select a category", c("Cause of Death", "Full-time", "Part-time", "Not employed but has worked previously","Not employed and has never worked")), 
+          #box(
+           # title = "Region", status = "primary", solidHeader = TRUE,
+         #   collapsible = TRUE,
+          #  plotOutput("Employee", height = 300))
       )
     )
   )
@@ -124,6 +132,10 @@ server <- function(input, output, session) {
     chooseSub(subsetEmp, input$category3)
   })
   
+  # Fourth page death cause
+  #output$Employee <- renderPlot({
+   # chooseSub(stateSubset, input$category4)
+ # })
   
 }
 
