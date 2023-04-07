@@ -99,30 +99,31 @@ ui <- dashboardPage(
 # Define server input and output
 server <- function(input, output, session) {
 
-  # First page alcohol consumption map
+  # Second page alcohol consumption map
   output$usPlot <- renderPlot({
     choropleth_map(alcoholByStateGallons, "alcoholConsumptionGallons", "darkgreen")
   })
   
-  # First page region pie chart
+  # Second page region pie chart
   output$regionChart <- renderPlot({
     createPieChart(subsetRegion, input$category)
   })
   
-  # Second page education status pie chart
+  # Third page education status pie chart
   output$EducationChart <- renderPlot({
     createPieChart(subsetEdu, input$category1)
   })
   
-  # Third page age pie chart 
+  # Fourth page age pie chart 
   output$AgeChart <- renderPlot({
     createPieChart(subsetAge, input$category2)
   })
   
-  # Third page emplyment pie chart
+  # Fourth page employment pie chart
   output$Employee <- renderPlot({
     chooseSub(subsetEmp, input$category3)
   })
+  
   
 }
 
