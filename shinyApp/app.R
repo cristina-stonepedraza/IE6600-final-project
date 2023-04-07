@@ -48,7 +48,7 @@ ui <- dashboardPage(skin = "red",
         # alcohol gallon consumption map
         fluidRow(
               box(
-                title = "Gallons Consumed per Person per Year", status = "primary", solidHeader = TRUE,
+                title = "Gallons Consumed per Person per Year", status = "danger", solidHeader = TRUE,
                 collapsible = TRUE,
                 plotOutput("usPlot", height = 300))
               ),
@@ -57,7 +57,7 @@ ui <- dashboardPage(skin = "red",
         fluidRow(
           selectInput("category", "Select a category: Region", c("West", "Midwest", "South", "Northeast")), 
           box(
-            title = "Region", status = "primary", solidHeader = TRUE,
+            title = "Region", status = "warning", solidHeader = TRUE,
             collapsible = TRUE,
             plotOutput("regionChart", height = 300))
         )
@@ -100,8 +100,8 @@ ui <- dashboardPage(skin = "red",
         # Create age pie chart
         fluidRow(
           selectInput("category2", "Select a category: Age", c("18-44", "45-64", "65-74", "75+")), 
-          box(
-            title = "Age", status = "primary", solidHeader = TRUE,
+          box(width = 6,
+            title = "Age", status = "success", solidHeader = TRUE,
             collapsible = TRUE,
             plotOutput("AgeChart", height = 300))
         ),#Emp
@@ -109,8 +109,8 @@ ui <- dashboardPage(skin = "red",
         # Create employment status bar chart
         fluidRow(
           selectInput("category3", "Select a category", c("Employed", "Full-time", "Part-time", "Not employed but has worked previously","Not employed and has never worked")), 
-          box(
-            title = "Region", status = "primary", solidHeader = TRUE,
+          box(width = 6,
+            title = "Region", status = "info", solidHeader = TRUE,
             collapsible = TRUE,
             plotOutput("Employee", height = 300))
           )
@@ -137,8 +137,14 @@ ui <- dashboardPage(skin = "red",
                 column(width = 6,
                        selectizeInput("category_col1", "Marital Status:", choices = c("Married", "Widowed", "Never married","Divorced or separated","Living with a partner"), multiple = TRUE, selected =c("Married", "Widowed", "Never married","Divorced or separated","Living with a partner"))
                 ),
-                column(width = 12,
-                       plotOutput("MaritalR", height = 700)
+                box(width = 12, collapsible = TRUE,
+                       fluidRow(
+                         valueBox(
+                           "Married", "IDK how to put value on",
+                           color = "yellow"
+                         )
+                       ),
+                       plotOutput("MaritalR", height = 500)
                 )
               )
         )# TEST tabItem
