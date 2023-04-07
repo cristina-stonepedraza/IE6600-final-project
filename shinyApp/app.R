@@ -9,8 +9,10 @@ source("www/functions/PieChart.R")
 source("www/functions/subsetFunctions.R")
 source("www/functions/Radar.R")
 
+
 #ui
-ui <- dashboardPage(
+ui <- dashboardPage(skin = "red",
+ 
   dashboardHeader(title = "Alcohol Use"),
   dashboardSidebar(
     sidebarMenu(
