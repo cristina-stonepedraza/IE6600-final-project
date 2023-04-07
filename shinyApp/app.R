@@ -98,21 +98,23 @@ ui <- dashboardPage(skin = "red",
         h2("use ARDI data"),
         
         # Create age pie chart
-        fluidRow(
+        fluidRow(column(width = 6,
           selectInput("category2", "Select a category: Age", c("18-44", "45-64", "65-74", "75+")), 
-          box(width = 6,
+          box(
             title = "Age", status = "success", solidHeader = TRUE,
             collapsible = TRUE,
             plotOutput("AgeChart", height = 300))
+          #) put two box in one fluidrow 
         ),#Emp
         
         # Create employment status bar chart
-        fluidRow(
-          selectInput("category3", "Select a category", c("Employed", "Full-time", "Part-time", "Not employed but has worked previously","Not employed and has never worked")), 
-          box(width = 6,
-            title = "Region", status = "info", solidHeader = TRUE,
-            collapsible = TRUE,
-            plotOutput("Employee", height = 300))
+        column(width = 6,
+               selectInput("category3", "Select a category", c("Employed", "Full-time", "Part-time", "Not employed but has worked previously","Not employed and has never worked")), 
+               box(
+                 title = "Region", status = "info", solidHeader = TRUE,
+                 collapsible = TRUE,
+                 plotOutput("Employee", height = 300))
+            )
           )
          ),
         
@@ -136,7 +138,8 @@ ui <- dashboardPage(skin = "red",
                 ),
                 column(width = 4,
                        selectizeInput("category_col1", "Marital Status:", choices = c("Married", "Widowed", "Never married","Divorced or separated","Living with a partner"), multiple = TRUE, selected =c("Married", "Widowed", "Never married","Divorced or separated","Living with a partner"))
-                ),
+                #####you can choose mutiply choice by using multiple = TRUE
+                       ),
                 box(width = 6, collapsible = TRUE,
                        fluidRow(
                          valueBox(
