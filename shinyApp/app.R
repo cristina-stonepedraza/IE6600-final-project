@@ -1,13 +1,13 @@
 # app.R
 
-library(shiny)
-library(shinydashboard)
+#library(shiny)
+#library(shinydashboard)
 
 #source("www/figures/gallonChartUS.R")
-source("www/functions/MapFunction.R")
-source("www/functions/PieChart.R")
-source("www/functions/subsetFunctions.R")
-source("www/functions/Radar.R")
+#source("www/functions/MapFunction.R")
+#source("www/functions/PieChart.R")
+#source("www/functions/subsetFunctions.R")
+#source("www/functions/Radar.R")
 
 
 #ui
@@ -16,7 +16,6 @@ ui <- dashboardPage(skin = "red",
   dashboardHeader(title = "Alcohol Use"),
   dashboardSidebar(
     sidebarMenu(
-      menuItem("Home", tabName = "home"),
       menuItem("US & Regional", tabName = "maps"), 
       menuItem("Demographics", tabName = "demographics"), 
       menuItem("Effects & Outcomes", tabName = "effects"),
@@ -26,52 +25,44 @@ ui <- dashboardPage(skin = "red",
   dashboardBody(
     tabItems(
       
-####### First tab content###################################################
-      
-      tabItem(tabName = "home",
-        h2("intro to dataset and problem"),
-              #fluidRow(
-                #box(plotOutput("plot1", height = 250)),
-                
-                #box(
-                  #title = "Controls",
-                  #sliderInput("slider", "Number of observations:", 1, 100, 50)
-                #)
-              #)
-      ),
-      
-######## Second tab content################################################
+######## First tab content################################################
 
       tabItem(tabName = "maps",
-              h2("use map and regional data"), 
+              h2("U.S. Drinking Habits Overall and by Region 2"), 
               
-        # alcohol gallon consumption map
+        # alcohol gallon consumption map, region
         fluidRow(
               box(
                 title = "Gallons Consumed per Person per Year", status = "danger", solidHeader = TRUE,
                 collapsible = TRUE,
-                plotOutput("usPlot", height = 300))
+                plotOutput("usPlot", height = 300)), 
+              selectInput("category", "Select a category: Region", c("West", "Midwest", "South", "Northeast")), 
+              box(
+                title = "Drinking Habits by U.S. Region", status = "warning", solidHeader = TRUE,
+                collapsible = TRUE,
+                plotOutput("regionChart", height = 300))
               ),
+              
         
         # region 
-        fluidRow(
-          selectInput("category", "Select a category: Region", c("West", "Midwest", "South", "Northeast")), 
-          box(
-            title = "Region", status = "warning", solidHeader = TRUE,
-            collapsible = TRUE,
-            plotOutput("regionChart", height = 300))
-        )
-      ), # Second page end
+        #fluidRow(
+          #selectInput("category", "Select a category: Region", c("West", "Midwest", "South", "Northeast")), 
+          #box(
+            #title = "Region", status = "warning", solidHeader = TRUE,
+            #collapsible = TRUE,
+            #plotOutput("regionChart", height = 300))
+        #)
+      ), # First page end
       
-######## Third page##########################################################################
+######## Second page##########################################################################
       tabItem(tabName = "demographics",
-        h2("use subset data"),
+        h2("Drinking Habit Data by Demographic"),
         
         # education status
         fluidRow(
           selectInput("category1", "Select a category: Education", c("Less than a high school diploma", "High school or GED", "Some college", "Bachelors degree or higher")), 
           box(
-            title = "Education", status = "primary", solidHeader = TRUE,
+            title = "Drinking Habits by Education Level", status = "primary", solidHeader = TRUE,
             collapsible = TRUE,
             plotOutput("EducationChart", height = 300))
         ),
@@ -79,7 +70,7 @@ ui <- dashboardPage(skin = "red",
         fluidRow(
           selectInput("category5", "Select a category: Family income", c("Less than $35,000", "$35,000–$49,999", "$50,000–$74,999", "$75,000–$99,999","$100,000 or more")), 
           box(
-            title = "Family Income", status = "primary", solidHeader = TRUE,
+            title = "Drinking Habits by Family Income Level", status = "primary", solidHeader = TRUE,
             collapsible = TRUE,
             plotOutput("FamIncome", height = 300))
         ),
@@ -87,21 +78,21 @@ ui <- dashboardPage(skin = "red",
         fluidRow(
           selectInput("category6", "Select a category: Marital", c("Married", "Widowed", "Divorced or separated", "Never married","Living with a partner")), 
           box(
-            title = "Marital", status = "primary", solidHeader = TRUE,
+            title = "Drinking Habits by Marital Status", status = "primary", solidHeader = TRUE,
             collapsible = TRUE,
             plotOutput("Marital", height = 300))
         )
       ), 
       
-######## Fouth page##########################################################################
+######## Third page##########################################################################
       tabItem(tabName = "effects", 
-        h2("use ARDI data"),
+        h2("Effects of Excessive Drinking in the U.S."),
         
         # Create age pie chart
         fluidRow(column(width = 6,
           selectInput("category2", "Select a category: Age", c("18-44", "45-64", "65-74", "75+")), 
           box(
-            title = "Age", status = "success", solidHeader = TRUE,
+            title = "Drinking Habits by Age Group", status = "success", solidHeader = TRUE,
             collapsible = TRUE,
             plotOutput("AgeChart", height = 300))
 #########  ) put two box in one fluidrow. If you want them to be side by side you need a total width <= 12.
@@ -113,7 +104,9 @@ ui <- dashboardPage(skin = "red",
                box(
                  title = "Region", status = "info", solidHeader = TRUE,
                  collapsible = TRUE,
-                 plotOutput("Employee", height = 300))
+                 plotOutput("Employee", height = 300, width = 600), 
+                 width = 600
+              )
             )
           )
          ),
@@ -160,27 +153,27 @@ ui <- dashboardPage(skin = "red",
 # Define server input and output
 server <- function(input, output, session) {
 
-  # Second page alcohol consumption map
+  # First page alcohol consumption map
   output$usPlot <- renderPlot({
     choropleth_map(alcoholByStateGallons, "alcoholConsumptionGallons", "darkgreen")
   })
   
-  # Second page region pie chart
+  # First page region pie chart
   output$regionChart <- renderPlot({
     createPieChart(subsetRegion, input$category)
   })
   
-  # Third page education status pie chart
+  # Second page education status pie chart
   output$EducationChart <- renderPlot({
     createPieChart(subsetEdu, input$category1)
   })
   
-  # Third page Family income pie chart
+  # Second page Family income pie chart
   output$FamIncome <- renderPlot({
     chooseSub(subsetFamIncome, input$category5)
   })
   
-  # Third page Marital pie chart
+  # Second page Marital pie chart
   output$Marital <- renderPlot({
     chooseSub(subsetMarital, input$category6)
   })
@@ -191,12 +184,12 @@ server <- function(input, output, session) {
     createPieChart(subsetAge, input$category2)
   })
   
-  # Fourth page employment pie chart
+  # Third page employment pie chart
   output$Employee <- renderPlot({
     chooseSub(subsetEmp, input$category3)
   })
   
-  # Fourth page death cause
+  # Third page death cause
   #output$Employee <- renderPlot({
    # chooseSub(stateSubset, input$category4)
  ## })
