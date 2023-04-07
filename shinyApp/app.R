@@ -37,12 +37,16 @@ ui <- dashboardPage(
       # Second tab content
       tabItem(tabName = "maps",
               h2("use map and regional data"), 
+              
+        # alcohol gallon consumption map
         fluidRow(
               box(
                 title = "Gallons Consumed per Person per Year", status = "primary", solidHeader = TRUE,
                 collapsible = TRUE,
                 plotOutput("usPlot", height = 300))
               ),
+        
+        # region 
         fluidRow(
           selectInput("category", "Select a category: Region", c("West", "Midwest", "South", "Northeast")), 
           box(
@@ -50,10 +54,13 @@ ui <- dashboardPage(
             collapsible = TRUE,
             plotOutput("regionChart", height = 300))
         )
-      ), # End
-      #3
+      ), # Second page end
+      
+      # Third page
       tabItem(tabName = "demographics",
         h2("use subset data"),
+        
+        # education status
         fluidRow(
           selectInput("category1", "Select a category: Education", c("Less than a high school diploma", "High school or GED", "Some college", "Bachelors degree or higher")), 
           box(
@@ -62,9 +69,12 @@ ui <- dashboardPage(
             plotOutput("EducationChart", height = 300))
         )
       ), 
-      #4
+      
+      #4 Fouth page
       tabItem(tabName = "effects", 
         h2("use ARDI data"),
+        
+        # Create age pie chart
         fluidRow(
           selectInput("category2", "Select a category: Age", c("18-44", "45-64", "65-74", "75+")), 
           box(
@@ -72,6 +82,8 @@ ui <- dashboardPage(
             collapsible = TRUE,
             plotOutput("AgeChart", height = 300))
         ),#Emp
+        
+        # Create employment status bar chart
         fluidRow(
           selectInput("category3", "Select a category", c("Employed", "Full-time", "Part-time", "Not employed but has worked previously","Not employed and has never worked")), 
           box(
@@ -84,25 +96,34 @@ ui <- dashboardPage(
   )
 )
 
+# Define server input and output
 server <- function(input, output, session) {
 
+  # First page alcohol consumption map
   output$usPlot <- renderPlot({
     choropleth_map(alcoholByStateGallons, "alcoholConsumptionGallons", "darkgreen")
   })
   
+  # First page region pie chart
   output$regionChart <- renderPlot({
     createPieChart(subsetRegion, input$category)
   })
   
+  # Second page education status pie chart
   output$EducationChart <- renderPlot({
     createPieChart(subsetEdu, input$category1)
   })
+  
+  # Third page age pie chart 
   output$AgeChart <- renderPlot({
     createPieChart(subsetAge, input$category2)
   })
+  
+  # Third page emplyment pie chart
   output$Employee <- renderPlot({
     chooseSub(subsetEmp, input$category3)
   })
+  
 }
 
 shinyApp(ui, server)
