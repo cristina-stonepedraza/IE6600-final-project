@@ -11,6 +11,7 @@ source("www/functions/subsetFunctions.R")
 #source("www/functions/Radar.R")
 source("www/functions/statePlot.R")
 source("www/functions/ridgeline.R")
+source("www/functions/multiLine.R")
 
 #ui
 ui <- dashboardPage(skin = "red",
@@ -184,34 +185,6 @@ ui <- dashboardPage(skin = "red",
         
         fluidRow(
           column(width = 6, 
-            selectInput("chooseState", "Select a state: ", c("Alabama", "Alaska","Arizona",
-                                                           "Arkansas", "California","Colorado",
-                                                           "Connecticut","Delaware","Florida",
-                                                           "Georgia","Hawaii","Idaho", "Illinois", 
-                                                           "Indiana","Iowa","Kansas","Kentucky",
-                                                           "Louisiana","Maine","Maryland",
-                                                           "Massachusetts","Michigan","Minnesota",
-                                                           "Mississippi","Missouri",'Montana',
-                                                           'Nebraska','Nevada','New Hampshire',
-                                                           'New Jersey','New Mexico','New York',
-                                                           'North Carolina','North Dakota','Ohio',
-                                                           'Oklahoma','Oregon','Pennsylvania',
-                                                           'Rhode Island','South Carolina',
-                                                           'South Dakota','Tennessee','Texas','Utah',
-                                                           'Vermont','Virginia','Washington',
-                                                           'West Virginia','Wisconsin','Wyoming')), 
-            selectInput("chooseYear", "Select a year: ", c(1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 
-                                                         1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 
-                                                         2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 
-                                                         2014, 2015, 2016, 2017, 2018, 2019)), 
-            box(
-              title = "Causes of Alcohol-Related Deaths", status = "primary", solidHeader = TRUE, 
-              collapsible = TRUE, 
-              plotOutput("stateCauses", height = 300, width = 600), 
-              width = 600
-            )
-          ),
-          column(width = 6, 
             selectInput("chooseState2", "Select a state: ", c("Alabama", "Alaska","Arizona",
                                                              "Arkansas", "California","Colorado",
                                                              "Connecticut","Delaware","Florida",
@@ -229,12 +202,66 @@ ui <- dashboardPage(skin = "red",
                                                              'Vermont','Virginia','Washington',
                                                              'West Virginia','Wisconsin','Wyoming')), 
             box(
+              title = "Alcohol-Related Deaths Over Time", status = "primary", solidHeader = TRUE, 
+              collapsible = TRUE, 
+              plotOutput("lineCauses", height = 300, width = 600), 
+              width = 600
+            )
+          ), 
+          column(width = 6, 
+            selectInput("chooseState3", "Select a state: ", c("Alabama", "Alaska","Arizona",
+                                                              "Arkansas", "California","Colorado",
+                                                              "Connecticut","Delaware","Florida",
+                                                              "Georgia","Hawaii","Idaho", "Illinois", 
+                                                              "Indiana","Iowa","Kansas","Kentucky",
+                                                              "Louisiana","Maine","Maryland",
+                                                              "Massachusetts","Michigan","Minnesota",
+                                                              "Mississippi","Missouri",'Montana',
+                                                              'Nebraska','Nevada','New Hampshire',
+                                                              'New Jersey','New Mexico','New York',
+                                                              'North Carolina','North Dakota','Ohio',
+                                                              'Oklahoma','Oregon','Pennsylvania',
+                                                              'Rhode Island','South Carolina',
+                                                              'South Dakota','Tennessee','Texas','Utah',
+                                                              'Vermont','Virginia','Washington',
+                                                              'West Virginia','Wisconsin','Wyoming')), 
+            box(
               title = "Density for Causes of Alcohol-Related Deaths", status = "primary", solidHeader = TRUE, 
               collapsible = TRUE, 
               plotOutput("densityCauses", height = 300, width = 600), 
               width = 600
             )
           )
+        ), 
+        fluidRow(
+          column(width = 6, 
+            selectInput("chooseState", "Select a state: ", c("Alabama", "Alaska","Arizona",
+                                                            "Arkansas", "California","Colorado",
+                                                            "Connecticut","Delaware","Florida",
+                                                            "Georgia","Hawaii","Idaho", "Illinois", 
+                                                            "Indiana","Iowa","Kansas","Kentucky",
+                                                            "Louisiana","Maine","Maryland",
+                                                            "Massachusetts","Michigan","Minnesota",
+                                                            "Mississippi","Missouri",'Montana',
+                                                            'Nebraska','Nevada','New Hampshire',
+                                                            'New Jersey','New Mexico','New York',
+                                                            'North Carolina','North Dakota','Ohio',
+                                                            'Oklahoma','Oregon','Pennsylvania',
+                                                            'Rhode Island','South Carolina',
+                                                            'South Dakota','Tennessee','Texas','Utah',
+                                                            'Vermont','Virginia','Washington',
+                                                            'West Virginia','Wisconsin','Wyoming')), 
+            selectInput("chooseYear", "Select a year: ", c(1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 
+                                                          1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 
+                                                          2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 
+                                                          2014, 2015, 2016, 2017, 2018, 2019)), 
+            box(
+             title = "Causes of Alcohol-Related Deaths", status = "primary", solidHeader = TRUE, 
+              collapsible = TRUE, 
+             plotOutput("stateCauses", height = 300, width = 600), 
+             width = 600
+            )
+          ),
         )
         
       ),
@@ -355,8 +382,14 @@ server <- function(input, output, session) {
     statePlot(input$chooseState, input$chooseYear)
   })
   
+  # Third page density of death causes over time
   output$densityCauses <- renderPlot({
     ridgeline(input$chooseState2)
+  })
+  
+  # Third page death cause changes over time 
+  output$lineCauses <- renderPlot({
+    multiLine(input$chooseState3)
   })
   
   #Testing info box

@@ -19,6 +19,6 @@ ridgeline <- function(state){
     theme_bw() + 
     scale_fill_viridis_c(name = "Value", option = "C") + 
     labs(title = paste0("Value of Alcohol-Related Deaths for ", state), y = "Causes of Death", x = "Value")
-}
+ }
 
-ridgeline("Oregon")
+ridgeline("Alaska")
