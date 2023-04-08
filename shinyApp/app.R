@@ -57,17 +57,27 @@ ui <- dashboardPage(skin = "red",
 ######## Second page##########################################################################
       tabItem(tabName = "demographics",
         h2("Drinking Habit Data by Demographic"),
-        
-        # education status
         fluidRow(
           selectInput("category1", "Select a category: Education", c("Less than a high school diploma", "High school or GED", "Some college", "Bachelors degree or higher")), 
-          box(
-            title = "Drinking Habits by Education Level", status = "primary", solidHeader = TRUE,
+          tabBox(
+#            title = "Drinking Habits by Education Level",status = "primary", solidHeader = TRUE,
             collapsible = TRUE,
-            plotOutput("EducationChart", height = 300))
-        ),
+            # The id lets us use input$tabset1 on the server to find the current tab
+            id = "EducationChart", height = "250px",
+            tabPanel("Tab1", "First tab content"),
+            tabPanel("Tab2", "Tab content 2"),
+)          ),
+
+        # education status
+#        fluidRow(
+#          selectInput("category1", "Select a category: Education", c("Less than a high school diploma", "High school or GED", "Some college", "Bachelors degree or higher")), 
+#          box(
+#            title = "Drinking Habits by Education Level", status = "primary", solidHeader = TRUE,
+#            collapsible = TRUE,
+#            plotOutput("EducationChart", height = 300))
+#        ),
         #Family income
-        fluidRow(
+       fluidRow(
           selectInput("category5", "Select a category: Family income", c("Less than $35,000", "$35,000–$49,999", "$50,000–$74,999", "$75,000–$99,999","$100,000 or more")), 
           box(
             title = "Drinking Habits by Family Income Level", status = "primary", solidHeader = TRUE,
