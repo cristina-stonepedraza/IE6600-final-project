@@ -9,20 +9,18 @@ library(ggplot2)
 
 # Function
 
-statePlot <- function(state){
+statePlot <- function(state, yr){
   # First get subset for that state
-  stateSubset <- dataARDI %>%
-    select(LocationDesc, Category)
-  stateSubset <- subset(stateSubset, LocationDesc == state)
-  stateSubset <- table(stateSubset$Category)
-  stateSubset <- as.data.frame(stateSubset)
-
+  stateSubset <- subset(IHME, location == state)
+  stateSubset <- subset(stateSubset, year == yr)
+  stateSubset <- stateSubset %>%
+    select(cause, val)
   # Plot category of alcohol related deaths 
   ggplot(data = stateSubset) + 
-    geom_col(mapping = aes(x = "", y = Freq, fill = Var1)) +
+    geom_col(mapping = aes(x = "", y = val, fill = cause)) +
     coord_polar(theta = "y") +
     theme_bw() + 
-    labs(title = paste0("Pie Chart of Alcohol-Related Deaths for ", state), y = "Frequency")
+    labs(title = paste0("Frequency of Alcohol-Related Deaths for ", state), y = "Frequency")
 }
 
-#statePlot("Washington")
+#statePlot("Alabama", 1990)

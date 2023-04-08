@@ -229,3 +229,10 @@ subsetAlcoholDeath <- unique(subsetAlcoholDeath) %>%
   spread (key = Category, value = Number_of_Death)
 subsetAlcoholDeath <- subsetAlcoholDeath [, -which(names(subsetAlcoholDeath) == "Total")]
 
+### Alcohol-Related Deaths table
+IHME <- read_csv("IHME-GBD_2019_DATA-0b4d93c4-1.csv")
+
+# Subset and Make Tidy
+# Keep only data we need 
+IHME <- IHME %>%
+  select(location, year, cause, val)
