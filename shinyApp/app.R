@@ -10,6 +10,7 @@ source("www/functions/PieChart.R")
 source("www/functions/subsetFunctions.R")
 #source("www/functions/Radar.R")
 source("www/functions/statePlot.R")
+source("www/functions/ridgeline.R")
 
 #ui
 ui <- dashboardPage(skin = "red",
@@ -209,6 +210,30 @@ ui <- dashboardPage(skin = "red",
               plotOutput("stateCauses", height = 300, width = 600), 
               width = 600
             )
+          ),
+          column(width = 6, 
+            selectInput("chooseState2", "Select a state: ", c("Alabama", "Alaska","Arizona",
+                                                             "Arkansas", "California","Colorado",
+                                                             "Connecticut","Delaware","Florida",
+                                                             "Georgia","Hawaii","Idaho", "Illinois", 
+                                                             "Indiana","Iowa","Kansas","Kentucky",
+                                                             "Louisiana","Maine","Maryland",
+                                                             "Massachusetts","Michigan","Minnesota",
+                                                             "Mississippi","Missouri",'Montana',
+                                                             'Nebraska','Nevada','New Hampshire',
+                                                             'New Jersey','New Mexico','New York',
+                                                             'North Carolina','North Dakota','Ohio',
+                                                             'Oklahoma','Oregon','Pennsylvania',
+                                                             'Rhode Island','South Carolina',
+                                                             'South Dakota','Tennessee','Texas','Utah',
+                                                             'Vermont','Virginia','Washington',
+                                                             'West Virginia','Wisconsin','Wyoming')), 
+            box(
+              title = "Density for Causes of Alcohol-Related Deaths", status = "primary", solidHeader = TRUE, 
+              collapsible = TRUE, 
+              plotOutput("densityCauses", height = 300, width = 600), 
+              width = 600
+            )
           )
         )
         
@@ -328,7 +353,11 @@ server <- function(input, output, session) {
   # Third page death cause
   output$stateCauses <- renderPlot({
     statePlot(input$chooseState, input$chooseYear)
-   })
+  })
+  
+  output$densityCauses <- renderPlot({
+    ridgeline(input$chooseState2)
+  })
   
   #Testing info box
   output$progressBox2 <- renderInfoBox({
