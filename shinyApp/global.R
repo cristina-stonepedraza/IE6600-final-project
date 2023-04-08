@@ -59,6 +59,8 @@ colnames(subsetAge_rotated) <- rownames(subsetAge)
 
 subsetAge_rotated <- data.frame(subsetAge_rotated)
 
+subsetAge_rotated$Type = rownames(subsetAge_rotated)
+
 # Alcohol use by education status
 subsetEdu <- frequencyDist2018[c(27, 28, 29, 30), ] # <
 
@@ -87,6 +89,7 @@ subsetEdu$Type = rownames(subsetEdu)
 subsetEdu_rotated <- t(subsetEdu[ , -5])
 
 subsetEdu_rotated <- data.frame(subsetEdu_rotated)
+subsetEdu_rotated$Type = rownames(subsetEdu_rotated)
 
 
 # Alcohol use by employment status
@@ -118,7 +121,7 @@ subsetEmp$Type = rownames(subsetEmp)
 subsetEmp_rotated <- t(subsetEmp[ , -6])
 
 subsetEmp_rotated <- data.frame(subsetEmp_rotated)
-
+subsetEmp_rotated$Type = rownames(subsetEmp_rotated)
 
 # Alcohol use by family income 
 subsetFamIncome <- frequencyDist2018[c(38, 39, 40, 41, 42, 43), ]
@@ -149,7 +152,7 @@ subsetFamIncome$Type = rownames(subsetFamIncome)
 
 subsetFamIncome_rotated <- t(subsetFamIncome[ , -6])
 subsetFamIncome_rotated <- data.frame(subsetFamIncome_rotated)
-
+subsetFamIncome_rotated$Type = rownames(subsetFamIncome_rotated)
   
 # Alcohol use by region
 subsetRegion <- frequencyDist2018[c(72, 73, 74, 75), ]
@@ -177,6 +180,7 @@ subsetRegion$Type = rownames(subsetRegion)
 
 subsetRegion_rotated <- t(subsetRegion[ , -5])
 subsetRegion_rotated <- data.frame(subsetRegion_rotated)
+subsetRegion_rotated$Type = rownames(subsetRegion_rotated)
 
 # Alcohol use by marital status 
 subsetMarital <- frequencyDist2018[c(62, 63, 64, 65, 66), ]
@@ -206,7 +210,7 @@ subsetMarital$Type = rownames(subsetMarital)
 
 subsetMarital_rotated <- t(subsetMarital[ , -6])
 subsetMarital_rotated <- data.frame(subsetMarital_rotated)
-
+subsetMarital_rotated$Type = rownames(subsetMarital_rotated)
 
 ### Third table - Alcohol Related Disease Impact  
 ARDI <- read_csv("Alcohol-Related_Disease_Impact__ARDI__Application_-_Alcohol-Attributable_Deaths.csv")
@@ -224,3 +228,4 @@ subsetAlcoholDeath <- ARDI %>%
 subsetAlcoholDeath <- unique(subsetAlcoholDeath) %>% 
   spread (key = Category, value = Number_of_Death)
 subsetAlcoholDeath <- subsetAlcoholDeath [, -which(names(subsetAlcoholDeath) == "Total")]
+
