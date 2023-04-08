@@ -212,24 +212,7 @@ subsetMarital_rotated <- t(subsetMarital[ , -6])
 subsetMarital_rotated <- data.frame(subsetMarital_rotated)
 subsetMarital_rotated$Type = rownames(subsetMarital_rotated)
 
-### Third table - Alcohol Related Disease Impact  
-ARDI <- read_csv("Alcohol-Related_Disease_Impact__ARDI__Application_-_Alcohol-Attributable_Deaths.csv")
-
-# Subset and Make Tidy 
-# Keep only data we need 
-dataARDI <- ARDI %>%
-  select(LocationAbbr, LocationDesc, ConditionType, Category, Cause_of_Death, ConsumptionPattern, AgeGroup)
-
-# Alcohol related death
-subsetAlcoholDeath <- ARDI %>% 
-  select(LocationDesc, Category) %>%
-  group_by(LocationDesc, Category) %>% 
-  mutate (Number_of_Death = n()) 
-subsetAlcoholDeath <- unique(subsetAlcoholDeath) %>% 
-  spread (key = Category, value = Number_of_Death)
-subsetAlcoholDeath <- subsetAlcoholDeath [, -which(names(subsetAlcoholDeath) == "Total")]
-
-### Alcohol-Related Deaths table
+### Third table - Alcohol-Related Deaths table
 IHME <- read_csv("IHME-GBD_2019_DATA-0b4d93c4-1.csv")
 
 # Subset and Make Tidy
