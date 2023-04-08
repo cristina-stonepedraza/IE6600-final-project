@@ -291,7 +291,7 @@ server <- function(input, output, session) {
   
   # Second page employment pie chart
   output$Employee2 <- renderPlot({
-    chooseSub(subsetEmp_rotated, input$category12)
+    createPieChart(subsetEmp_rotated, input$category12)
   })
   
   # Third page death cause
