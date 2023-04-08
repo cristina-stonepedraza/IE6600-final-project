@@ -6,7 +6,7 @@ choropleth_map <- function(data, var, color) {
   plot_usmap(data = data, values = var, color = color) + 
     scale_fill_continuous(low = "white", high = color, 
                           name = paste(var, " (per Person, per Year)"), 
-                          label = scales::comma) + 
+                          label = function(x) format(round(x, 2), nsmall = 2, big.mark = ",")) +
     theme(legend.position = "right")
 }
 
