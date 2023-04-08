@@ -120,47 +120,49 @@ ui <- dashboardPage(skin = "red",
             title = "Drinking Habits by Marital Status", status = "primary", solidHeader = TRUE,
             collapsible = TRUE,
             plotOutput("Marital2", height = 300))
+        ),
+        
+        fluidRow(
+          column(
+            width = 6,
+            selectInput("category2", "Select a category: Age", c("18-44", "45-64", "65-74", "75+")), 
+            box(
+              title = "Drinking Habits by Age Group", status = "success", solidHeader = TRUE,
+              collapsible = TRUE,
+              plotOutput(
+                "AgeChart", 
+                height = 300, 
+                width = 600),
+              width = 600
+            )
+          ),
+          # Create employment status bar chart
+          column(
+            width = 6,
+            selectInput("category3", "Select a category", c("Employed", "Full-time", "Part-time", "Not employed but has worked previously","Not employed and has never worked")), 
+            box(
+              title = "Region", 
+              status = "info", 
+              solidHeader = TRUE,
+              collapsible = TRUE,
+              plotOutput(
+                "Employee", 
+                height = 300,
+                width = 600), 
+              width = 600
+            )
+          )
         )
-
+        
       ), 
       
 ######## Third page##########################################################################
       tabItem(tabName = "effects", 
         h2("Effects of Excessive Drinking in the U.S."),
         
-        # Create age pie chart
-        fluidRow(column(width = 6,
-          selectInput("category2", "Select a category: Age", c("18-44", "45-64", "65-74", "75+")), 
-          box(
-            title = "Drinking Habits by Age Group", status = "success", solidHeader = TRUE,
-            collapsible = TRUE,
-            plotOutput("AgeChart", height = 300, width = 600),
-            width = 600
-          )
-#########  ) put two box in one fluidrow. If you want them to be side by side you need a total width <= 12.
-        ),#Emp
         
-        # Create employment status bar chart
-        column(width = 6,
-               selectInput("category3", "Select a category", c("Employed", "Full-time", "Part-time", "Not employed but has worked previously","Not employed and has never worked")), 
-               box(
-                 title = "Region", status = "info", solidHeader = TRUE,
-                 collapsible = TRUE,
-                 plotOutput("Employee", height = 300, width = 600), 
-                 width = 600
-              )
-            )
-          )
-         ),
-        
-        # Create death cause pie chart
-        #fluidRow(
-         # selectInput("category4", "Select a category", c("Cause of Death", "Full-time", "Part-time", "Not employed but has worked previously","Not employed and has never worked")), 
-          #box(
-           # title = "Region", status = "primary", solidHeader = TRUE,
-         #   collapsible = TRUE,
-          #  plotOutput("Employee", height = 300))
-        
+      ),
+      
 ######## TEST################################################################################################
         
         tabItem(tabName = "test", 
