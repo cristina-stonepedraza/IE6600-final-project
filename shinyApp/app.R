@@ -125,6 +125,7 @@ ui <- dashboardPage(skin = "red",
         fluidRow(
           column(
             width = 6,
+            # Age group pie chart
             selectInput("category2", "Select a category: Age", c("18-44", "45-64", "65-74", "75+")), 
             box(
               title = "Drinking Habits by Age Group", status = "success", solidHeader = TRUE,
@@ -136,6 +137,7 @@ ui <- dashboardPage(skin = "red",
               width = 600
             )
           ),
+          
           # Create employment status bar chart
           column(
             width = 6,
@@ -152,6 +154,24 @@ ui <- dashboardPage(skin = "red",
               width = 600
             )
           )
+        ),
+        
+        fluidRow(
+          # Age group bar chart
+          selectInput("category11", "Select a category: Drinking Frequency", c("Lifetime.Abstainer", "Former.Infrequent", "Former.Regular", "Current.Infrequent","Current.Regular")), 
+          box(
+            title = "Drinking Habits by Age Group", status = "primary", solidHeader = TRUE,
+            collapsible = TRUE,
+            plotOutput("Age2", height = 300)) 
+        ),
+        
+        fluidRow(
+          # Age group bar chart
+          selectInput("category12", "Select a category: Drinking Frequency", c("Lifetime.Abstainer", "Former.Infrequent", "Former.Regular", "Current.Infrequent","Current.Regular")), 
+          box(
+            title = "Drinking Habits by Employment Status", status = "primary", solidHeader = TRUE,
+            collapsible = TRUE,
+            plotOutput("Employee2", height = 300)) 
         )
         
       ), 
@@ -254,14 +274,24 @@ server <- function(input, output, session) {
   })
   
 
-  # Fourth page age pie chart 
+  # Second Page age pie chart 
   output$AgeChart <- renderPlot({
     createPieChart(subsetAge, input$category2)
   })
   
-  # Third page employment pie chart
+  # Second Page Age bar chart 
+  output$Age2 <- renderPlot({
+    chooseSub(subsetAge_rotated, input$category11)
+  })
+  
+  # Second page employment pie chart
   output$Employee <- renderPlot({
     chooseSub(subsetEmp, input$category3)
+  })
+  
+  # Second page employment pie chart
+  output$Employee2 <- renderPlot({
+    chooseSub(subsetEmp_rotated, input$category12)
   })
   
   # Third page death cause
