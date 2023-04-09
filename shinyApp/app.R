@@ -25,7 +25,7 @@ ui <- dashboardPage(skin = "red",
  
   dashboardHeader(title = "Alcohol Use"),
   dashboardSidebar(
-    sidebarMenu(tags$img(src = "www/figures/bo.gif", height = "100px", width = "100%"),
+    sidebarMenu(tags$img(src = "www/figures/fire.jpg", height = "100px", width = "100%"),
       menuItem("US & Regional", tabName = "maps"), 
       menuItem("Demographics", tabName = "demographics"), 
       menuItem("Effects & Outcomes", tabName = "effects"),
@@ -88,10 +88,11 @@ ui <- dashboardPage(skin = "red",
         
         #Education tab Box
         fluidRow(
+          column(width = 6,
           tabBox(
-            title = tags$span(style = "color: red;", "Drinking Habits by Education Level"),
+            title = tags$span(style = "color: Blue;", "Drinking Habits by Education Level"),
             # The id lets us use input$tabset1 on the server to find the current tab
-            id = "tabset1", height = "250px",
+            id = "tabset1", height = "250px",width = 600,
             # Education bar chart
             tabPanel("Tab1", "First tab content", 
                      selectInput("category1", "Select a category: Education", c("Less than a high school diploma", "High school or GED", "Some college", "Bachelors degree or higher")),
@@ -102,33 +103,31 @@ ui <- dashboardPage(skin = "red",
                      selectInput("category7", "Select a category:Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
                      plotOutput("Education2", height = 300)
                      )
-          ),
-          style = "margin-bottom: 250px;", # Move the next row down by 250px
-        ),
-        
-        
-      
-        #Family income tab Box
-        fluidRow(
+          )
+            ),
+
+                    
+          #Family income tab Box
+          column(width = 6,
           tabBox(
-            title = tags$span(style = "color: red;", "Drinking Habits by Family Income Level"), 
+            title = tags$span(style = "color: Green;", "Drinking Habits by Family Income Level"), 
             # The id lets us use input$tabset2 on the server to find the current tab
-            id = "tabset2", height = "250px",
+            id = "tabset2", height = "250px",width = 600,
             # Family income bar chart
             tabPanel("Tab1", "First tab content", 
                      selectInput("category5", "Select a category: Family income", c("Less than $35,000", "$35,000–$49,999", "$50,000–$74,999", "$75,000–$99,999","$100,000 or more")),
                      plotOutput("FamIncome", height = 300)
-                     ),
+            ),
             # Family income pie chart
             tabPanel("Tab2", "Tab content 2",
                      selectInput("category9", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
                      plotOutput("FamIncome2", height = 300)
-                     )
+            )
           ),
           style = "margin-bottom: 250px;", # Move the next row down by 250px
-        ),
+          )
+          ),
 
-        
         
         #Marital tab box
         fluidRow(
@@ -139,12 +138,12 @@ ui <- dashboardPage(skin = "red",
             #Marital bar chart
             tabPanel("Tab1", "First tab content", 
                      selectInput("category6", "Select a category: Marital", c("Married", "Widowed", "Divorced or separated", "Never married","Living with a partner")),
-                     plotOutput("Marital", height = 300)
+                     plotOutput("Marital", height = 300,width = 600)
             ),
             #Marital pie chart
             tabPanel("Tab2", "Tab content 2",
                      selectInput("category10", "Select a category: Drinking Frequency",c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
-                     plotOutput("Marital2", height = 300)
+                     plotOutput("Marital2", height = 300,width = 600)
             )
           ),
           style = "margin-bottom: 250px;", # Move the next row down by 250px
