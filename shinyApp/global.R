@@ -61,6 +61,12 @@ subsetAge_rotated <- data.frame(subsetAge_rotated)
 
 subsetAge_rotated$Type = rownames(subsetAge_rotated)
 
+colnames(subsetAge_rotated)[colnames(subsetAge_rotated) == 'Lifetime.Abstainer'] <- 'Lifetime Abstainer'
+colnames(subsetAge_rotated)[colnames(subsetAge_rotated) == 'Former.Infrequent'] <- 'Former Infrequent'
+colnames(subsetAge_rotated)[colnames(subsetAge_rotated) == 'Former.Regular'] <- 'Former Regular'
+colnames(subsetAge_rotated)[colnames(subsetAge_rotated) == 'Current.Infrequent'] <- 'Current Infrequent'
+colnames(subsetAge_rotated)[colnames(subsetAge_rotated) == 'Current.Regular'] <- 'Current Regular'
+
 # Alcohol use by education status
 subsetEdu <- frequencyDist2018[c(27, 28, 29, 30), ] # <
 
@@ -90,7 +96,11 @@ subsetEdu_rotated <- t(subsetEdu[ , -5])
 
 subsetEdu_rotated <- data.frame(subsetEdu_rotated)
 subsetEdu_rotated$Type = rownames(subsetEdu_rotated)
-
+colnames(subsetEdu_rotated)[colnames(subsetEdu_rotated) == 'Lifetime.Abstainer'] <- 'Lifetime Abstainer'
+colnames(subsetEdu_rotated)[colnames(subsetEdu_rotated) == 'Former.Infrequent'] <- 'Former Infrequent'
+colnames(subsetEdu_rotated)[colnames(subsetEdu_rotated) == 'Former.Regular'] <- 'Former Regular'
+colnames(subsetEdu_rotated)[colnames(subsetEdu_rotated) == 'Current.Infrequent'] <- 'Current Infrequent'
+colnames(subsetEdu_rotated)[colnames(subsetEdu_rotated) == 'Current.Regular'] <- 'Current Regular'
 
 # Alcohol use by employment status
 subsetEmp <- frequencyDist2018[c(32, 33, 34, 35, 36), ]
@@ -122,6 +132,12 @@ subsetEmp_rotated <- t(subsetEmp[ , -6])
 
 subsetEmp_rotated <- data.frame(subsetEmp_rotated)
 subsetEmp_rotated$Type = rownames(subsetEmp_rotated)
+colnames(subsetEmp_rotated)[colnames(subsetEmp_rotated) == 'Lifetime.Abstainer'] <- 'Lifetime Abstainer'
+colnames(subsetEmp_rotated)[colnames(subsetEmp_rotated) == 'Former.Infrequent'] <- 'Former Infrequent'
+colnames(subsetEmp_rotated)[colnames(subsetEmp_rotated) == 'Former.Regular'] <- 'Former Regular'
+colnames(subsetEmp_rotated)[colnames(subsetEmp_rotated) == 'Current.Infrequent'] <- 'Current Infrequent'
+colnames(subsetEmp_rotated)[colnames(subsetEmp_rotated) == 'Current.Regular'] <- 'Current Regular'
+
 
 # Alcohol use by family income 
 subsetFamIncome <- frequencyDist2018[c(38, 39, 40, 41, 42, 43), ]
@@ -153,6 +169,11 @@ subsetFamIncome$Type = rownames(subsetFamIncome)
 subsetFamIncome_rotated <- t(subsetFamIncome[ , -6])
 subsetFamIncome_rotated <- data.frame(subsetFamIncome_rotated)
 subsetFamIncome_rotated$Type = rownames(subsetFamIncome_rotated)
+colnames(subsetFamIncome_rotated)[colnames(subsetFamIncome_rotated) == 'Lifetime.Abstainer'] <- 'Lifetime Abstainer'
+colnames(subsetFamIncome_rotated)[colnames(subsetFamIncome_rotated) == 'Former.Infrequent'] <- 'Former Infrequent'
+colnames(subsetFamIncome_rotated)[colnames(subsetFamIncome_rotated) == 'Former.Regular'] <- 'Former Regular'
+colnames(subsetFamIncome_rotated)[colnames(subsetFamIncome_rotated) == 'Current.Infrequent'] <- 'Current Infrequent'
+colnames(subsetFamIncome_rotated)[colnames(subsetFamIncome_rotated) == 'Current.Regular'] <- 'Current Regular'
   
 # Alcohol use by region
 subsetRegion <- frequencyDist2018[c(72, 73, 74, 75), ]
@@ -181,6 +202,12 @@ subsetRegion$Type = rownames(subsetRegion)
 subsetRegion_rotated <- t(subsetRegion[ , -5])
 subsetRegion_rotated <- data.frame(subsetRegion_rotated)
 subsetRegion_rotated$Type = rownames(subsetRegion_rotated)
+
+colnames(subsetRegion_rotated)[colnames(subsetRegion_rotated) == 'Lifetime.Abstainer'] <- 'Lifetime Abstainer'
+colnames(subsetRegion_rotated)[colnames(subsetRegion_rotated) == 'Former.Infrequent'] <- 'Former Infrequent'
+colnames(subsetRegion_rotated)[colnames(subsetRegion_rotated) == 'Former.Regular'] <- 'Former Regular'
+colnames(subsetRegion_rotated)[colnames(subsetRegion_rotated) == 'Current.Infrequent'] <- 'Current Infrequent'
+colnames(subsetRegion_rotated)[colnames(subsetRegion_rotated) == 'Current.Regular'] <- 'Current Regular'
 
 # Alcohol use by marital status 
 subsetMarital <- frequencyDist2018[c(62, 63, 64, 65, 66), ]
@@ -211,6 +238,11 @@ subsetMarital$Type = rownames(subsetMarital)
 subsetMarital_rotated <- t(subsetMarital[ , -6])
 subsetMarital_rotated <- data.frame(subsetMarital_rotated)
 subsetMarital_rotated$Type = rownames(subsetMarital_rotated)
+colnames(subsetMarital_rotated)[colnames(subsetMarital_rotated) == 'Lifetime.Abstainer'] <- 'Lifetime Abstainer'
+colnames(subsetMarital_rotated)[colnames(subsetMarital_rotated) == 'Former.Infrequent'] <- 'Former Infrequent'
+colnames(subsetMarital_rotated)[colnames(subsetMarital_rotated) == 'Former.Regular'] <- 'Former Regular'
+colnames(subsetMarital_rotated)[colnames(subsetMarital_rotated) == 'Current.Infrequent'] <- 'Current Infrequent'
+colnames(subsetMarital_rotated)[colnames(subsetMarital_rotated) == 'Current.Regular'] <- 'Current Regular'
 
 ### Third table - Alcohol-Related Deaths table
 IHME <- read_csv("IHME-GBD_2019_DATA-0b4d93c4-1.csv")

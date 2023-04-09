@@ -8,6 +8,7 @@ library(shinydashboard)
 source("www/functions/MapFunction.R")
 source("www/functions/PieChart.R")
 source("www/functions/subsetFunctions.R")
+source("www/functions/regionHabits.R")
 #source("www/functions/Radar.R")
 source("www/functions/statePlot.R")
 source("www/functions/ridgeline.R")
@@ -31,7 +32,7 @@ ui <- dashboardPage(skin = "red",
 ######## First tab content################################################
 
       tabItem(tabName = "maps",
-              h2("U.S. Drinking Habits Overall and by Region 2"), 
+              h2("U.S. Drinking Habits Overall"), 
               
         # alcohol gallon consumption map, region
         fluidRow(
@@ -50,7 +51,7 @@ ui <- dashboardPage(skin = "red",
         
         fluidRow(     
                # region bar chart with frequency
-              selectInput("category8", "Select a category: Drinking Frequency", c("Lifetime.Abstainer", "Former.Infrequent", "Former.Regular", "Current.Infrequent","Current.Regular")), 
+              selectInput("category8", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")), 
               box(
                 title = "Drinking Habits by U.S. Region", status = "warning", solidHeader = TRUE,
                 collapsible = TRUE,
@@ -322,7 +323,7 @@ server <- function(input, output, session) {
   
   # First page region bar chart
   output$regionChart2 <- renderPlot({
-    chooseSub(subsetRegion_rotated, input$category8)
+    regionHabits(input$category8)
   })
   
   # Second page education status pie chart

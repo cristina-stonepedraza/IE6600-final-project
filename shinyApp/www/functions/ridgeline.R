@@ -18,7 +18,5 @@ ridgeline <- function(state){
     geom_density_ridges_gradient() + 
     theme_bw() + 
     scale_fill_viridis_c(name = "Value", option = "C") + 
-    labs(title = paste0("Value of Alcohol-Related Deaths for ", state), y = "Causes of Death", x = "Value")
+    labs(title = paste0("Value of Alcohol-Related Deaths for ", state), y = "Causes of Death", x = "Number of Deaths (in 100s of thousands)")
  }
-
-ridgeline("Alaska")
