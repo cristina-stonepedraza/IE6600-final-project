@@ -36,36 +36,37 @@ ui <- dashboardPage(skin = "red",
               
         # alcohol gallon consumption map, region
         fluidRow(
-              box(
-                title = "Gallons Consumed per Person per Year", status = "danger", solidHeader = TRUE,
-                collapsible = TRUE,
-                plotOutput("usPlot", height = 300)), 
-              
-              # region pie chart
-              selectInput("category", "Select a category: Region", c("West", "Midwest", "South", "Northeast")), 
-              box(
-                title = "Drinking Habits by U.S. Region", status = "warning", solidHeader = TRUE,
-                collapsible = TRUE,
-                plotOutput("regionChart", height = 300))
-              ),
+          column(width = 6,
+            box(
+              title = "Gallons Consumed per Person per Year", status = "danger", solidHeader = TRUE,
+              collapsible = TRUE,
+              plotOutput("usPlot", height = 375, width = 600), 
+              width = 600
+            )
+          )
+        ),
         
-        fluidRow(     
-               # region bar chart with frequency
+        fluidRow(
+          # region pie chart
+          column(width = 6,
+                 box(
+                   title = "Drinking Habits by U.S. Region", status = "warning", solidHeader = TRUE,
+                   selectInput("category", "Select a category: Region", c("West", "Midwest", "South", "Northeast")),
+                   collapsible = TRUE,
+                   plotOutput("regionChart", height = 300, width = 600),
+                   width = 600
+                 ) 
+          ),
+          column(width = 6,
+            box(
+              title = "Drinking Habits by U.S. Region", status = "warning", solidHeader = TRUE,
               selectInput("category8", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")), 
-              box(
-                title = "Drinking Habits by U.S. Region", status = "warning", solidHeader = TRUE,
-                collapsible = TRUE,
-                plotOutput("regionChart2", height = 300))
-              ),
-        
-        # region 
-        #fluidRow(
-          #selectInput("category", "Select a category: Region", c("West", "Midwest", "South", "Northeast")), 
-          #box(
-            #title = "Region", status = "warning", solidHeader = TRUE,
-            #collapsible = TRUE,
-            #plotOutput("regionChart", height = 300))
-        #)
+              collapsible = TRUE,
+              plotOutput("regionChart2", height = 300, width = 600),
+              width = 600
+            )
+          )
+        )
       ), # First page end
       
 ######## Second page##########################################################################
@@ -74,54 +75,54 @@ ui <- dashboardPage(skin = "red",
         
         # Education bar chart
         fluidRow(
-          selectInput("category1", "Select a category: Education", c("Less than a high school diploma", "High school or GED", "Some college", "Bachelors degree or higher")), 
           box(
             title = "Drinking Habits by Education Level", status = "primary", solidHeader = TRUE,
+            selectInput("category1", "Select a category: Education", c("Less than a high school diploma", "High school or GED", "Some college", "Bachelors degree or higher")), 
             collapsible = TRUE,
             plotOutput("EducationChart", height = 300))
         ),
         
         # Education pie chart
         fluidRow(
-          selectInput("category7", "Select a category:Drinking Frequency", c("Lifetime.Abstainer", "Former.Infrequent", "Former.Regular", "Current.Infrequent","Current.Regular")), 
           box(
             title = "Drinking Habits by Education Level", status = "primary", solidHeader = TRUE,
+            selectInput("category7", "Select a category:Drinking Frequency", c("Lifetime.Abstainer", "Former.Infrequent", "Former.Regular", "Current.Infrequent","Current.Regular")), 
             collapsible = TRUE,
             plotOutput("Education2", height = 300))
         ),
         
         #Family income bar chart 
         fluidRow(
-          selectInput("category5", "Select a category: Family income", c("Less than $35,000", "$35,000–$49,999", "$50,000–$74,999", "$75,000–$99,999","$100,000 or more")), 
           box(
             title = "Drinking Habits by Family Income Level", status = "primary", solidHeader = TRUE,
+            selectInput("category5", "Select a category: Family income", c("Less than $35,000", "$35,000–$49,999", "$50,000–$74,999", "$75,000–$99,999","$100,000 or more")), 
             collapsible = TRUE,
             plotOutput("FamIncome", height = 300))
         ),
         
         # Family income pie chart 
         fluidRow(
-          selectInput("category9", "Select a category: Drinking Frequency", c("Lifetime.Abstainer", "Former.Infrequent", "Former.Regular", "Current.Infrequent","Current.Regular")), 
           box(
             title = "Drinking Habits by Family Income", status = "primary", solidHeader = TRUE,
+            selectInput("category9", "Select a category: Drinking Frequency", c("Lifetime.Abstainer", "Former.Infrequent", "Former.Regular", "Current.Infrequent","Current.Regular")), 
             collapsible = TRUE,
             plotOutput("FamIncome2", height = 300))
         ),
         
         #Marital bar chart
         fluidRow(
-          selectInput("category6", "Select a category: Marital", c("Married", "Widowed", "Divorced or separated", "Never married","Living with a partner")), 
           box(
             title = "Drinking Habits by Marital Status", status = "primary", solidHeader = TRUE,
+            selectInput("category6", "Select a category: Marital", c("Married", "Widowed", "Divorced or separated", "Never married","Living with a partner")), 
             collapsible = TRUE,
             plotOutput("Marital", height = 300))
         ),
         
         #Marital pie chart
         fluidRow(
-          selectInput("category10", "Select a category: Drinking Frequency", c("Lifetime.Abstainer", "Former.Infrequent", "Former.Regular", "Current.Infrequent","Current.Regular")), 
           box(
             title = "Drinking Habits by Marital Status", status = "primary", solidHeader = TRUE,
+            selectInput("category10", "Select a category: Drinking Frequency", c("Lifetime.Abstainer", "Former.Infrequent", "Former.Regular", "Current.Infrequent","Current.Regular")), 
             collapsible = TRUE,
             plotOutput("Marital2", height = 300))
         ),
@@ -130,14 +131,11 @@ ui <- dashboardPage(skin = "red",
           column(
             width = 6,
             # Age group pie chart
-            selectInput("category2", "Select a category: Age", c("18-44", "45-64", "65-74", "75+")), 
             box(
               title = "Drinking Habits by Age Group", status = "success", solidHeader = TRUE,
+              selectInput("category2", "Select a category: Age", c("18-44", "45-64", "65-74", "75+")), 
               collapsible = TRUE,
-              plotOutput(
-                "AgeChart", 
-                height = 300, 
-                width = 600),
+              plotOutput("AgeChart", height = 300, width = 600),
               width = 600
             )
           ),
@@ -147,14 +145,10 @@ ui <- dashboardPage(skin = "red",
             width = 6,
             selectInput("category3", "Select a category", c("Employed", "Full-time", "Part-time", "Not employed but has worked previously","Not employed and has never worked")), 
             box(
-              title = "Region", 
-              status = "info", 
-              solidHeader = TRUE,
+              title = "Region", status = "info", solidHeader = TRUE,
+              selectInput("category3", "Select a category", c("Employed", "Full-time", "Part-time", "Not employed but has worked previously","Not employed and has never worked")), 
               collapsible = TRUE,
-              plotOutput(
-                "Employee", 
-                height = 300,
-                width = 600), 
+              plotOutput("Employee", height = 300,width = 600), 
               width = 600
             )
           )
@@ -162,18 +156,18 @@ ui <- dashboardPage(skin = "red",
         
         fluidRow(
           # Age group bar chart
-          selectInput("category11", "Select a category: Drinking Frequency", c("Lifetime.Abstainer", "Former.Infrequent", "Former.Regular", "Current.Infrequent","Current.Regular")), 
           box(
             title = "Drinking Habits by Age Group", status = "primary", solidHeader = TRUE,
+            selectInput("category11", "Select a category: Drinking Frequency", c("Lifetime.Abstainer", "Former.Infrequent", "Former.Regular", "Current.Infrequent","Current.Regular")), 
             collapsible = TRUE,
             plotOutput("Age2", height = 300)) 
         ),
         
         fluidRow(
           # Age group bar chart
-          selectInput("category12", "Select a category: Drinking Frequency", c("Lifetime.Abstainer", "Former.Infrequent", "Former.Regular", "Current.Infrequent","Current.Regular")), 
           box(
             title = "Drinking Habits by Employment Status", status = "primary", solidHeader = TRUE,
+            selectInput("category12", "Select a category: Drinking Frequency", c("Lifetime.Abstainer", "Former.Infrequent", "Former.Regular", "Current.Infrequent","Current.Regular")),
             collapsible = TRUE,
             plotOutput("Employee2", height = 300)) 
         )
@@ -186,48 +180,48 @@ ui <- dashboardPage(skin = "red",
         
         fluidRow(
           column(width = 6, 
-            selectInput("chooseState2", "Select a state: ", c("Alabama", "Alaska","Arizona",
-                                                             "Arkansas", "California","Colorado",
-                                                             "Connecticut","Delaware","Florida",
-                                                             "Georgia","Hawaii","Idaho", "Illinois", 
-                                                             "Indiana","Iowa","Kansas","Kentucky",
-                                                             "Louisiana","Maine","Maryland",
-                                                             "Massachusetts","Michigan","Minnesota",
-                                                             "Mississippi","Missouri",'Montana',
-                                                             'Nebraska','Nevada','New Hampshire',
-                                                             'New Jersey','New Mexico','New York',
-                                                             'North Carolina','North Dakota','Ohio',
-                                                             'Oklahoma','Oregon','Pennsylvania',
-                                                             'Rhode Island','South Carolina',
-                                                             'South Dakota','Tennessee','Texas','Utah',
-                                                             'Vermont','Virginia','Washington',
-                                                             'West Virginia','Wisconsin','Wyoming')), 
             box(
               title = "Alcohol-Related Deaths Over Time", status = "primary", solidHeader = TRUE, 
+              selectInput("chooseState2", "Select a state: ", c("Alabama", "Alaska","Arizona",
+                                                                "Arkansas", "California","Colorado",
+                                                                "Connecticut","Delaware","Florida",
+                                                                "Georgia","Hawaii","Idaho", "Illinois", 
+                                                                "Indiana","Iowa","Kansas","Kentucky",
+                                                                "Louisiana","Maine","Maryland",
+                                                                "Massachusetts","Michigan","Minnesota",
+                                                                "Mississippi","Missouri",'Montana',
+                                                                'Nebraska','Nevada','New Hampshire',
+                                                                'New Jersey','New Mexico','New York',
+                                                                'North Carolina','North Dakota','Ohio',
+                                                                'Oklahoma','Oregon','Pennsylvania',
+                                                                'Rhode Island','South Carolina',
+                                                                'South Dakota','Tennessee','Texas','Utah',
+                                                                'Vermont','Virginia','Washington',
+                                                                'West Virginia','Wisconsin','Wyoming')),
               collapsible = TRUE, 
               plotOutput("lineCauses", height = 300, width = 600), 
               width = 600
             )
           ), 
           column(width = 6, 
-            selectInput("chooseState3", "Select a state: ", c("Alabama", "Alaska","Arizona",
-                                                              "Arkansas", "California","Colorado",
-                                                              "Connecticut","Delaware","Florida",
-                                                              "Georgia","Hawaii","Idaho", "Illinois", 
-                                                              "Indiana","Iowa","Kansas","Kentucky",
-                                                              "Louisiana","Maine","Maryland",
-                                                              "Massachusetts","Michigan","Minnesota",
-                                                              "Mississippi","Missouri",'Montana',
-                                                              'Nebraska','Nevada','New Hampshire',
-                                                              'New Jersey','New Mexico','New York',
-                                                              'North Carolina','North Dakota','Ohio',
-                                                              'Oklahoma','Oregon','Pennsylvania',
-                                                              'Rhode Island','South Carolina',
-                                                              'South Dakota','Tennessee','Texas','Utah',
-                                                              'Vermont','Virginia','Washington',
-                                                              'West Virginia','Wisconsin','Wyoming')), 
             box(
-              title = "Density for Causes of Alcohol-Related Deaths", status = "primary", solidHeader = TRUE, 
+              title = "Density for Causes of Alcohol-Related Deaths", status = "warning", solidHeader = TRUE, 
+              selectInput("chooseState3", "Select a state: ", c("Alabama", "Alaska","Arizona",
+                                                                "Arkansas", "California","Colorado",
+                                                                "Connecticut","Delaware","Florida",
+                                                                "Georgia","Hawaii","Idaho", "Illinois", 
+                                                                "Indiana","Iowa","Kansas","Kentucky",
+                                                                "Louisiana","Maine","Maryland",
+                                                                "Massachusetts","Michigan","Minnesota",
+                                                                "Mississippi","Missouri",'Montana',
+                                                                'Nebraska','Nevada','New Hampshire',
+                                                                'New Jersey','New Mexico','New York',
+                                                                'North Carolina','North Dakota','Ohio',
+                                                                'Oklahoma','Oregon','Pennsylvania',
+                                                                'Rhode Island','South Carolina',
+                                                                'South Dakota','Tennessee','Texas','Utah',
+                                                                'Vermont','Virginia','Washington',
+                                                                'West Virginia','Wisconsin','Wyoming')), 
               collapsible = TRUE, 
               plotOutput("densityCauses", height = 300, width = 600), 
               width = 600
@@ -235,32 +229,36 @@ ui <- dashboardPage(skin = "red",
           )
         ), 
         fluidRow(
-          column(width = 6, 
-            selectInput("chooseState", "Select a state: ", c("Alabama", "Alaska","Arizona",
-                                                            "Arkansas", "California","Colorado",
-                                                            "Connecticut","Delaware","Florida",
-                                                            "Georgia","Hawaii","Idaho", "Illinois", 
-                                                            "Indiana","Iowa","Kansas","Kentucky",
-                                                            "Louisiana","Maine","Maryland",
-                                                            "Massachusetts","Michigan","Minnesota",
-                                                            "Mississippi","Missouri",'Montana',
-                                                            'Nebraska','Nevada','New Hampshire',
-                                                            'New Jersey','New Mexico','New York',
-                                                            'North Carolina','North Dakota','Ohio',
-                                                            'Oklahoma','Oregon','Pennsylvania',
-                                                            'Rhode Island','South Carolina',
-                                                            'South Dakota','Tennessee','Texas','Utah',
-                                                            'Vermont','Virginia','Washington',
-                                                            'West Virginia','Wisconsin','Wyoming')), 
-            selectInput("chooseYear", "Select a year: ", c(1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 
-                                                          1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 
-                                                          2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 
-                                                          2014, 2015, 2016, 2017, 2018, 2019)), 
+          column(width = 12, 
             box(
-             title = "Causes of Alcohol-Related Deaths", status = "primary", solidHeader = TRUE, 
-              collapsible = TRUE, 
-             plotOutput("stateCauses", height = 300, width = 600), 
-             width = 600
+              title = "Causes of Alcohol-Related Deaths", status = "danger", solidHeader = TRUE, 
+              collapsible = TRUE,
+              column(width = 3,
+                selectInput("chooseState", "Select a state: ", c("Alabama", "Alaska","Arizona",
+                                                                 "Arkansas", "California","Colorado",
+                                                                 "Connecticut","Delaware","Florida",
+                                                                 "Georgia","Hawaii","Idaho", "Illinois", 
+                                                                 "Indiana","Iowa","Kansas","Kentucky",
+                                                                 "Louisiana","Maine","Maryland",
+                                                                 "Massachusetts","Michigan","Minnesota",
+                                                                 "Mississippi","Missouri",'Montana',
+                                                                 'Nebraska','Nevada','New Hampshire',
+                                                                 'New Jersey','New Mexico','New York',
+                                                                 'North Carolina','North Dakota','Ohio',
+                                                                 'Oklahoma','Oregon','Pennsylvania',
+                                                                 'Rhode Island','South Carolina',
+                                                                 'South Dakota','Tennessee','Texas','Utah',
+                                                                 'Vermont','Virginia','Washington',
+                                                                 'West Virginia','Wisconsin','Wyoming')), 
+                selectInput("chooseYear", "Select a year: ", c(1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 
+                                                               1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 
+                                                               2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 
+                                                               2014, 2015, 2016, 2017, 2018, 2019))
+              ),
+              column(width = 9,
+                plotOutput("stateCauses", height = 300, width = 800)
+              ),
+              width = 800
             )
           ),
         )
@@ -313,7 +311,7 @@ server <- function(input, output, session) {
 
   # First page alcohol consumption map
   output$usPlot <- renderPlot({
-    choropleth_map(alcoholByStateGallons, "alcoholConsumptionGallons", "darkgreen")
+    choropleth_map(alcoholByStateGallons, "alcoholConsumptionGallons")
   })
   
   # First page region pie chart
