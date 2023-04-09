@@ -39,25 +39,42 @@ ui <- dashboardPage(skin = "red",
 
       tabItem(tabName = "maps",
               h2("U.S. Drinking Habits Overall"), 
-              
-        # alcohol gallon consumption map, region
+        # alcohol gallon consumption map Tab Box
         fluidRow(
-          column(width = 6,
-            box(
-              title = "Gallons Consumed per Person per Year", status = "danger", solidHeader = TRUE,
-              collapsible = TRUE,
-              plotOutput("usPlot", height = 375, width = 600), 
-              width = 600
+          tabBox(
+            title = tags$span(style = "color: red;", "Gallons Consumed per Person per Year"),
+            # The id lets us use input$tabset4 on the server to find the current tab
+            id = "tabset4", height = "250px",
+            # alcohol gallon consumption map, region
+            tabPanel("Tab1", "First tab content", 
+                     plotOutput("usPlot", height = 300)
+            ),
+            #new map
+            tabPanel("Tab2", "Tab content 2",
+                     plotOutput("interactive_map", height = 300)
             )
-          )
+          ),
+          style = "margin-bottom: 250px;", # Move the next row down by 250px
         ),
+        
+        
+#        fluidRow(
+#          column(width = 6,
+#            box(
+#              title = "Gallons Consumed per Person per Year", status = "danger", solidHeader = TRUE,
+#              collapsible = TRUE,
+#              plotOutput("usPlot", height = 375, width = 600), 
+#              width = 600
+#            )
+#          )
+#        ),
         # new mappp lol
-        fluidRow(
-          box(
-            title = "Gallons Consumed per Person per Year", status = "danger", solidHeader = TRUE,
-            plotlyOutput("interactive_map"),
-            width = 600)
-        ),
+#        fluidRow(
+#          box(
+#            title = "Gallons Consumed per Person per Year", status = "danger", solidHeader = TRUE,
+#            plotlyOutput("interactive_map"),
+#            width = 600)
+#        ),
         
         fluidRow(
           # region pie chart
@@ -133,17 +150,17 @@ ui <- dashboardPage(skin = "red",
         fluidRow(
           tabBox(
             title = tags$span(style = "color: red;", "Drinking Habits by Marital Status"),
-            # The id lets us use input$tabset1 on the server to find the current tab
+            # The id lets us use input$tabset3 on the server to find the current tab
             id = "tabset3", height = "250px",
             #Marital bar chart
             tabPanel("Tab1", "First tab content", 
                      selectInput("category6", "Select a category: Marital", c("Married", "Widowed", "Divorced or separated", "Never married","Living with a partner")),
-                     plotOutput("Marital", height = 300,width = 600)
+                     plotOutput("Marital", height = 300)
             ),
             #Marital pie chart
             tabPanel("Tab2", "Tab content 2",
                      selectInput("category10", "Select a category: Drinking Frequency",c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
-                     plotOutput("Marital2", height = 300,width = 600)
+                     plotOutput("Marital2", height = 300)
             )
           ),
           style = "margin-bottom: 250px;", # Move the next row down by 250px
@@ -332,7 +349,11 @@ ui <- dashboardPage(skin = "red",
 
 # Define server input and output
 server <- function(input, output, session) {
-
+  #Second page alcohol consumption map tab box 4
+  output$tabset4Selected <- renderText({
+    input$tabset4
+  })
+  
   # First page alcohol consumption map
   output$usPlot <- renderPlot({
     choropleth_map(alcoholByStateGallons, "alcoholConsumptionGallons")
@@ -368,7 +389,7 @@ server <- function(input, output, session) {
     eduHabits(input$category7)
   })
   
-  #Second page Family income tabbox 2
+  #Second page Family income tab box 2
   output$tabset2Selected <- renderText({
     input$tabset2
   })
@@ -381,6 +402,10 @@ server <- function(input, output, session) {
   # Second page Family income pie chart
   output$FamIncome2 <- renderPlot({
     incomeHabits(input$category9)
+  })
+  #Second page Family income tab box 3
+  output$tabset3Selected <- renderText({
+    input$tabset3
   })
   
   # Second page Marital pie chart
