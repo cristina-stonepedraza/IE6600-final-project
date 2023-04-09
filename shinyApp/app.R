@@ -78,41 +78,46 @@ ui <- dashboardPage(skin = "red",
       tabItem(tabName = "demographics",
         h2("Drinking Habit Data by Demographic"),
         
-        # Education bar chart
+        #Education tabBox
         fluidRow(
-          box(
-            title = "Drinking Habits by Education Level", status = "primary", solidHeader = TRUE,
-            selectInput("category1", "Select a category: Education", c("Less than a high school diploma", "High school or GED", "Some college", "Bachelors degree or higher")), 
-            collapsible = TRUE,
-            plotOutput("EducationChart", height = 300))
+          tabBox(
+            title = tags$span(style = "color: red;", "Drinking Habits by Education Level"),
+            # The id lets us use input$tabset1 on the server to find the current tab
+            id = "tabset1", height = "250px",
+            # Education bar chart
+            tabPanel("Tab1", "First tab content", 
+                     selectInput("category1", "Select a category: Education", c("Less than a high school diploma", "High school or GED", "Some college", "Bachelors degree or higher")),
+                     plotOutput("EducationChart", height = 300)
+                     ),
+            # Education pie chart
+            tabPanel("Tab2", "Tab content 2",
+                     selectInput("category7", "Select a category:Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
+                     plotOutput("Education2", height = 300)
+                     )
+          ),
+          style = "margin-bottom: 250px;", # Move the next row down by 250px
         ),
         
-        # Education pie chart
+        #Family income tabBox
         fluidRow(
-          box(
-            title = "Drinking Habits by Education Level", status = "primary", solidHeader = TRUE,
-            selectInput("category7", "Select a category:Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")), 
-            collapsible = TRUE,
-            plotOutput("Education2", height = 300))
+          tabBox(
+            title = "Drinking Habits by Family Income Level", 
+            # The id lets us use input$tabset2 on the server to find the current tab
+            id = "tabset2", height = "250px",
+            # Family income bar chart
+            tabPanel("Tab1", "First tab content", 
+                     selectInput("category5", "Select a category: Family income", c("Less than $35,000", "$35,000–$49,999", "$50,000–$74,999", "$75,000–$99,999","$100,000 or more")),
+                     plotOutput("FamIncome", height = 300)
+                     ),
+            # Family income pie chart
+            tabPanel("Tab2", "Tab content 2",
+                     selectInput("category9", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
+                     plotOutput("FamIncome2", height = 300)
+                     )
+          ),
+          style = "margin-bottom: 250px;", # Move the next row down by 250px
         ),
-        
-        #Family income bar chart 
-        fluidRow(
-          box(
-            title = "Drinking Habits by Family Income Level", status = "primary", solidHeader = TRUE,
-            selectInput("category5", "Select a category: Family income", c("Less than $35,000", "$35,000–$49,999", "$50,000–$74,999", "$75,000–$99,999","$100,000 or more")), 
-            collapsible = TRUE,
-            plotOutput("FamIncome", height = 300))
-        ),
-        
-        # Family income pie chart 
-        fluidRow(
-          box(
-            title = "Drinking Habits by Family Income", status = "primary", solidHeader = TRUE,
-            selectInput("category9", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")), 
-            collapsible = TRUE,
-            plotOutput("FamIncome2", height = 300))
-        ),
+      
         
         #Marital bar chart
         fluidRow(
@@ -329,6 +334,11 @@ server <- function(input, output, session) {
     regionHabits(input$category8)
   })
   
+  #Second page education status tabbox
+  output$tabset1Selected <- renderText({
+    input$tabset1
+  })
+  
   # Second page education status pie chart
   output$EducationChart <- renderPlot({
     chooseSub(subsetEdu, input$category1)
@@ -339,6 +349,10 @@ server <- function(input, output, session) {
     eduHabits(input$category7)
   })
   
+  #Second page Family income tabbox 2
+  output$tabset2Selected <- renderText({
+    input$tabset2
+  })
   
   # Second page Family income pie chart
   output$FamIncome <- renderPlot({
