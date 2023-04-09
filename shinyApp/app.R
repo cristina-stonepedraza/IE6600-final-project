@@ -50,6 +50,13 @@ ui <- dashboardPage(skin = "red",
             )
           )
         ),
+        # new mappp lol
+        fluidRow(
+          box(
+            title = "Gallons Consumed per Person per Year", status = "danger", solidHeader = TRUE,
+            plotlyOutput("interactive_map"),
+            width = 600)
+        ),
         
         fluidRow(
           # region pie chart
@@ -307,8 +314,8 @@ ui <- dashboardPage(skin = "red",
                          )
                        ),
                        plotOutput("MaritalR", height = 500)
-                )
-              )
+                    )
+                  )
         )# TEST tabItem
 
     ) # tabItems
@@ -323,7 +330,12 @@ server <- function(input, output, session) {
   output$usPlot <- renderPlot({
     choropleth_map(alcoholByStateGallons, "alcoholConsumptionGallons")
   })
-  
+  ####test
+  output$interactive_map <- renderPlotly({
+    data <- alcoholByStateGallons
+    var <- "alcoholConsumptionGallons"
+    create_fresh_map(data, var)
+  })
   # First page region pie chart
   output$regionChart <- renderPlot({
     createPieChart(subsetRegion, input$category)
