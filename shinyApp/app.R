@@ -74,7 +74,7 @@ ui <- dashboardPage(skin = "red",
         )
       ), # First page end
       
-######## Second page##########################################################################
+######## Second page###########################################################################
       tabItem(tabName = "demographics",
         h2("Drinking Habit Data by Demographic"),
         
