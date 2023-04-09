@@ -18,13 +18,14 @@ source("www/functions/ageHabits.R")
 source("www/functions/statePlot.R")
 source("www/functions/ridgeline.R")
 source("www/functions/multiLine.R")
+addResourcePath("figures", "www/figures")
 
 #ui
 ui <- dashboardPage(skin = "red",
  
   dashboardHeader(title = "Alcohol Use"),
   dashboardSidebar(
-    sidebarMenu(
+    sidebarMenu(tags$img(src = "www/figures/bo.gif", height = "100px", width = "100%"),
       menuItem("US & Regional", tabName = "maps"), 
       menuItem("Demographics", tabName = "demographics"), 
       menuItem("Effects & Outcomes", tabName = "effects"),
