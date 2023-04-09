@@ -26,6 +26,7 @@ ui <- dashboardPage(skin = "red",
   dashboardHeader(title = "Alcohol Use"),
   dashboardSidebar(
     sidebarMenu(tags$img(src = "figures/bo2.jpg", height = "100px", width = "100%"),
+      menuItem("HOME", tabName = "home", icon = icon("home")), 
       menuItem("US & Regional", tabName = "maps", icon = icon("globe")), 
       menuItem("Demographics", tabName = "demographics", icon = icon("users")), 
       menuItem("Effects & Outcomes", tabName = "effects", icon = icon("heartbeat")),

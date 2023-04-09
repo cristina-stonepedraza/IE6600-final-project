@@ -42,9 +42,9 @@ create_fresh_map <- function(data, var) {
 }
 
 # Example usage
-data <- alcoholByStateGallons
-var <- "alcoholConsumptionGallons"
-create_fresh_map(data, var)
+#data <- alcoholByStateGallons
+#var <- "alcoholConsumptionGallons"
+#create_fresh_map(data, var)
 
 
 
