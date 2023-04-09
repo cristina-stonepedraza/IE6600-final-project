@@ -25,7 +25,10 @@ ui <- dashboardPage(skin = "red",
  
   dashboardHeader(title = "Alcohol Use"),
   dashboardSidebar(
-    sidebarMenu(tags$img(src = "www/figures/fire.jpg", height = "100px", width = "100%"),
+    sidebarMenu(tags$div(
+        tags$img(src = "https://picsum.photos/200/300?grayscale", width = "100%"),
+        tags$p("This is a description of the image.")
+      ),
       menuItem("US & Regional", tabName = "maps", icon = icon("globe")), 
       menuItem("Demographics", tabName = "demographics", icon = icon("users")), 
       menuItem("Effects & Outcomes", tabName = "effects", icon = icon("heartbeat")),
@@ -51,7 +54,7 @@ ui <- dashboardPage(skin = "red",
             ),
             #new map
             tabPanel("Tab2", "Tab content 2",
-                     plotOutput("interactive_map", height = 300)
+                     plotlyOutput("interactive_map", height = 300)
             )
           ),
           style = "margin-bottom: 250px;", # Move the next row down by 250px
@@ -359,11 +362,11 @@ server <- function(input, output, session) {
     choropleth_map(alcoholByStateGallons, "alcoholConsumptionGallons")
   })
   ####test
-  #output$interactive_map <- renderPlotly({
-    #data <- alcoholByStateGallons
-    #var <- "alcoholConsumptionGallons"
-    #create_fresh_map(data, var)
-  #})
+  output$interactive_map <- renderPlotly({
+    data <- alcoholByStateGallons
+    var <- "alcoholConsumptionGallons"
+    create_fresh_map(data, var)
+  })
   
   # First page region pie chart
   output$regionChart <- renderPlot({
