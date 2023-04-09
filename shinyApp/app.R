@@ -25,10 +25,7 @@ ui <- dashboardPage(skin = "red",
  
   dashboardHeader(title = "Alcohol Use"),
   dashboardSidebar(
-    sidebarMenu(tags$div(
-        tags$img(src = "https://picsum.photos/200/300?grayscale", width = "100%"),
-        tags$p("This is a description of the image.")
-      ),
+    sidebarMenu(tags$img(src = "figures/bo2.jpg", height = "100px", width = "100%"),
       menuItem("US & Regional", tabName = "maps", icon = icon("globe")), 
       menuItem("Demographics", tabName = "demographics", icon = icon("users")), 
       menuItem("Effects & Outcomes", tabName = "effects", icon = icon("heartbeat")),
