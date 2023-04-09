@@ -9,6 +9,11 @@ source("www/functions/MapFunction.R")
 source("www/functions/PieChart.R")
 source("www/functions/subsetFunctions.R")
 source("www/functions/regionHabits.R")
+source("www/functions/eduHabits.R")
+source("www/functions/maritalHabits.R")
+source("www/functions/empHabits.R")
+source("www/functions/incomeHabits.R")
+source("www/functions/ageHabits.R")
 #source("www/functions/Radar.R")
 source("www/functions/statePlot.R")
 source("www/functions/ridgeline.R")
@@ -86,7 +91,7 @@ ui <- dashboardPage(skin = "red",
         fluidRow(
           box(
             title = "Drinking Habits by Education Level", status = "primary", solidHeader = TRUE,
-            selectInput("category7", "Select a category:Drinking Frequency", c("Lifetime.Abstainer", "Former.Infrequent", "Former.Regular", "Current.Infrequent","Current.Regular")), 
+            selectInput("category7", "Select a category:Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")), 
             collapsible = TRUE,
             plotOutput("Education2", height = 300))
         ),
@@ -104,7 +109,7 @@ ui <- dashboardPage(skin = "red",
         fluidRow(
           box(
             title = "Drinking Habits by Family Income", status = "primary", solidHeader = TRUE,
-            selectInput("category9", "Select a category: Drinking Frequency", c("Lifetime.Abstainer", "Former.Infrequent", "Former.Regular", "Current.Infrequent","Current.Regular")), 
+            selectInput("category9", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")), 
             collapsible = TRUE,
             plotOutput("FamIncome2", height = 300))
         ),
@@ -122,7 +127,7 @@ ui <- dashboardPage(skin = "red",
         fluidRow(
           box(
             title = "Drinking Habits by Marital Status", status = "primary", solidHeader = TRUE,
-            selectInput("category10", "Select a category: Drinking Frequency", c("Lifetime.Abstainer", "Former.Infrequent", "Former.Regular", "Current.Infrequent","Current.Regular")), 
+            selectInput("category10", "Select a category: Drinking Frequency",c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")), 
             collapsible = TRUE,
             plotOutput("Marital2", height = 300))
         ),
@@ -158,7 +163,7 @@ ui <- dashboardPage(skin = "red",
           # Age group bar chart
           box(
             title = "Drinking Habits by Age Group", status = "primary", solidHeader = TRUE,
-            selectInput("category11", "Select a category: Drinking Frequency", c("Lifetime.Abstainer", "Former.Infrequent", "Former.Regular", "Current.Infrequent","Current.Regular")), 
+            selectInput("category11", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")), 
             collapsible = TRUE,
             plotOutput("Age2", height = 300)) 
         ),
@@ -167,7 +172,7 @@ ui <- dashboardPage(skin = "red",
           # Age group bar chart
           box(
             title = "Drinking Habits by Employment Status", status = "primary", solidHeader = TRUE,
-            selectInput("category12", "Select a category: Drinking Frequency", c("Lifetime.Abstainer", "Former.Infrequent", "Former.Regular", "Current.Infrequent","Current.Regular")),
+            selectInput("category12", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
             collapsible = TRUE,
             plotOutput("Employee2", height = 300)) 
         )
@@ -331,7 +336,7 @@ server <- function(input, output, session) {
   
   # Second page education with rotate dataframe
   output$Education2 <- renderPlot({
-    createPieChart(subsetEdu_rotated, input$category7)
+    eduHabits(input$category7)
   })
   
   
@@ -342,7 +347,7 @@ server <- function(input, output, session) {
   
   # Second page Family income pie chart
   output$FamIncome2 <- renderPlot({
-    createPieChart(subsetFamIncome_rotated, input$category9)
+    incomeHabits(input$category9)
   })
   
   # Second page Marital pie chart
@@ -352,7 +357,7 @@ server <- function(input, output, session) {
   
   # Second page Marital pie chart
   output$Marital2 <- renderPlot({
-    createPieChart(subsetMarital_rotated, input$category10)
+    maritalHabits(input$category10)
   })
   
 
@@ -363,7 +368,7 @@ server <- function(input, output, session) {
   
   # Second Page Age bar chart 
   output$Age2 <- renderPlot({
-    chooseSub(subsetAge_rotated, input$category11)
+    ageHabits(input$category11)
   })
   
   # Second page employment pie chart
@@ -373,7 +378,7 @@ server <- function(input, output, session) {
   
   # Second page employment pie chart
   output$Employee2 <- renderPlot({
-    createPieChart(subsetEmp_rotated, input$category12)
+    empHabits(input$category12)
   })
   
   # Third page death cause

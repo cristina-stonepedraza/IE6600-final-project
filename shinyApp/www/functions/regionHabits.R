@@ -1,9 +1,8 @@
 #' @title: regionHabits
 #' @example regionHabits("Lifetime Abstainer")
 
-#' Function to create a bar chart based on the demographic subset 
-#' that the user chooses to examine. 
-#' Example: education status + some college
+#' Function to create a bar chart based on the drinking habit  
+#' that the user chooses to examine for region
 
 library(ggplot2)
 
