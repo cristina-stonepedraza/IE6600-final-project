@@ -111,12 +111,12 @@ ui <- dashboardPage(skin = "red",
             # The id lets us use input$tabset1 on the server to find the current tab
             id = "tabset1", height = "250px",width = 600,
             # Education bar chart
-            tabPanel("Tab1", "First tab content", 
+            tabPanel("Status", " ", 
                      selectInput("category1", "Select a category: Education", c("Less than a high school diploma", "High school or GED", "Some college", "Bachelors degree or higher")),
                      plotOutput("EducationChart", height = 300)
                      ),
             # Education pie chart
-            tabPanel("Tab2", "Tab content 2",
+            tabPanel("Frequency", " ",
                      selectInput("category7", "Select a category:Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
                      plotOutput("Education2", height = 300)
                      )
@@ -131,12 +131,12 @@ ui <- dashboardPage(skin = "red",
             # The id lets us use input$tabset2 on the server to find the current tab
             id = "tabset2", height = "250px",width = 600,
             # Family income bar chart
-            tabPanel("Tab1", "First tab content", 
+            tabPanel("Status", " ", 
                      selectInput("category5", "Select a category: Family income", c("Less than $35,000", "$35,000–$49,999", "$50,000–$74,999", "$75,000–$99,999","$100,000 or more")),
                      plotOutput("FamIncome", height = 300)
             ),
             # Family income pie chart
-            tabPanel("Tab2", "Tab content 2",
+            tabPanel("Frequency", " ",
                      selectInput("category9", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
                      plotOutput("FamIncome2", height = 300)
             )
@@ -153,12 +153,12 @@ ui <- dashboardPage(skin = "red",
             # The id lets us use input$tabset3 on the server to find the current tab
             id = "tabset3", height = "250px",
             #Marital bar chart
-            tabPanel("Tab1", "First tab content", 
+            tabPanel("Status", " ", 
                      selectInput("category6", "Select a category: Marital", c("Married", "Widowed", "Divorced or separated", "Never married","Living with a partner")),
                      plotOutput("Marital", height = 300)
             ),
             #Marital pie chart
-            tabPanel("Tab2", "Tab content 2",
+            tabPanel("Frequency", " ",
                      selectInput("category10", "Select a category: Drinking Frequency",c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
                      plotOutput("Marital2", height = 300)
             )
@@ -186,7 +186,7 @@ ui <- dashboardPage(skin = "red",
             width = 6,
             selectInput("category3", "Select a category", c("Employed", "Full-time", "Part-time", "Not employed but has worked previously","Not employed and has never worked")), 
             box(
-              title = "Region", status = "info", solidHeader = TRUE,
+              title = "Drinking Habits by Employment Status", status = "info", solidHeader = TRUE,
               selectInput("category3", "Select a category", c("Employed", "Full-time", "Part-time", "Not employed but has worked previously","Not employed and has never worked")), 
               collapsible = TRUE,
               plotOutput("Employee", height = 300,width = 600), 
@@ -205,7 +205,7 @@ ui <- dashboardPage(skin = "red",
         ),
         
         fluidRow(
-          # Age group bar chart
+          # Employment status bar chart
           box(
             title = "Drinking Habits by Employment Status", status = "primary", solidHeader = TRUE,
             selectInput("category12", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
@@ -359,11 +359,12 @@ server <- function(input, output, session) {
     choropleth_map(alcoholByStateGallons, "alcoholConsumptionGallons")
   })
   ####test
-  output$interactive_map <- renderPlotly({
-    data <- alcoholByStateGallons
-    var <- "alcoholConsumptionGallons"
-    create_fresh_map(data, var)
-  })
+  #output$interactive_map <- renderPlotly({
+    #data <- alcoholByStateGallons
+    #var <- "alcoholConsumptionGallons"
+    #create_fresh_map(data, var)
+  #})
+  
   # First page region pie chart
   output$regionChart <- renderPlot({
     createPieChart(subsetRegion, input$category)
@@ -426,17 +427,17 @@ server <- function(input, output, session) {
   
   # Second Page Age bar chart 
   output$Age2 <- renderPlot({
-    ageHabits(input$category11)
+    createPieChart(subsetAge_rotated, input$category11)
   })
   
   # Second page employment pie chart
   output$Employee <- renderPlot({
-    chooseSub(subsetEmp, input$category3)
+    createPieChart(subsetEmp, input$category3)
   })
   
   # Second page employment pie chart
   output$Employee2 <- renderPlot({
-    empHabits(input$category12)
+    createPieChart(subsetEmp_rotated, input$category12)
   })
   
   # Third page death cause
