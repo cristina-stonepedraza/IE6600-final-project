@@ -115,7 +115,7 @@ ui <- dashboardPage(skin = "red",
                      selectInput("category1", "Select a category: Education", c("Less than a high school diploma", "High school or GED", "Some college", "Bachelors degree or higher")),
                      plotOutput("EducationChart", height = 300)
                      ),
-            # Education pie chart
+            # Education bar chart2
             tabPanel("Frequency", " ",
                      selectInput("category7", "Select a category:Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
                      plotOutput("Education2", height = 300)
@@ -135,7 +135,7 @@ ui <- dashboardPage(skin = "red",
                      selectInput("category5", "Select a category: Family income", c("Less than $35,000", "$35,000–$49,999", "$50,000–$74,999", "$75,000–$99,999","$100,000 or more")),
                      plotOutput("FamIncome", height = 300)
             ),
-            # Family income pie chart
+            # Family income bar chart2
             tabPanel("Frequency", " ",
                      selectInput("category9", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
                      plotOutput("FamIncome2", height = 300)
@@ -157,7 +157,7 @@ ui <- dashboardPage(skin = "red",
                      selectInput("category6", "Select a category: Marital", c("Married", "Widowed", "Divorced or separated", "Never married","Living with a partner")),
                      plotOutput("Marital", height = 300)
             ),
-            #Marital pie chart
+            #Marital bar chart2
             tabPanel("Frequency", " ",
                      selectInput("category10", "Select a category: Drinking Frequency",c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
                      plotOutput("Marital2", height = 300)
@@ -380,12 +380,12 @@ server <- function(input, output, session) {
     input$tabset1
   })
   
-  # Second page education status pie chart
+  # Second page education status bar chart2
   output$EducationChart <- renderPlot({
     chooseSub(subsetEdu, input$category1)
   })
   
-  # Second page education with rotate dataframe
+  # Second page education bar chart2
   output$Education2 <- renderPlot({
     eduHabits(input$category7)
   })
@@ -395,12 +395,12 @@ server <- function(input, output, session) {
     input$tabset2
   })
   
-  # Second page Family income pie chart
+  # Second page Family income bar chart
   output$FamIncome <- renderPlot({
     chooseSub(subsetFamIncome, input$category5)
   })
   
-  # Second page Family income pie chart
+  # Second page Family income bar chart2
   output$FamIncome2 <- renderPlot({
     incomeHabits(input$category9)
   })
@@ -409,12 +409,12 @@ server <- function(input, output, session) {
     input$tabset3
   })
   
-  # Second page Marital pie chart
+  # Second page Marital bar chart
   output$Marital <- renderPlot({
     chooseSub(subsetMarital, input$category6)
   })
   
-  # Second page Marital pie chart
+  # Second page Marital bar chart2
   output$Marital2 <- renderPlot({
     maritalHabits(input$category10)
   })
@@ -425,7 +425,7 @@ server <- function(input, output, session) {
     createPieChart(subsetAge, input$category2)
   })
   
-  # Second Page Age bar chart 
+  # Second Page Age pie chart2
   output$Age2 <- renderPlot({
     createPieChart(subsetAge_rotated, input$category11)
   })
@@ -435,7 +435,7 @@ server <- function(input, output, session) {
     createPieChart(subsetEmp, input$category3)
   })
   
-  # Second page employment pie chart
+  # Second page employment pie chart2
   output$Employee2 <- renderPlot({
     createPieChart(subsetEmp_rotated, input$category12)
   })
