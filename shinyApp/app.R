@@ -2,7 +2,7 @@
 
 library(shiny)
 library(shinydashboard)
-
+library(shinyBS)
 # Use functions from www/functions
 #source("www/figures/gallonChartUS.R")
 source("www/functions/MapFunction.R")
@@ -85,7 +85,7 @@ ui <- dashboardPage(skin = "red",
       tabItem(tabName = "demographics",
         h2("Drinking Habit Data by Demographic"),
         
-        #Education tabBox
+        #Education tab Box
         fluidRow(
           tabBox(
             title = tags$span(style = "color: red;", "Drinking Habits by Education Level"),
@@ -105,10 +105,12 @@ ui <- dashboardPage(skin = "red",
           style = "margin-bottom: 250px;", # Move the next row down by 250px
         ),
         
-        #Family income tabBox
+        
+      
+        #Family income tab Box
         fluidRow(
           tabBox(
-            title = "Drinking Habits by Family Income Level", 
+            title = tags$span(style = "color: red;", "Drinking Habits by Family Income Level"), 
             # The id lets us use input$tabset2 on the server to find the current tab
             id = "tabset2", height = "250px",
             # Family income bar chart
@@ -124,25 +126,30 @@ ui <- dashboardPage(skin = "red",
           ),
           style = "margin-bottom: 250px;", # Move the next row down by 250px
         ),
-      
+
         
-        #Marital bar chart
-        fluidRow(
-          box(
-            title = "Drinking Habits by Marital Status", status = "primary", solidHeader = TRUE,
-            selectInput("category6", "Select a category: Marital", c("Married", "Widowed", "Divorced or separated", "Never married","Living with a partner")), 
-            collapsible = TRUE,
-            plotOutput("Marital", height = 300))
-        ),
         
-        #Marital pie chart
+        #Marital tab box
         fluidRow(
-          box(
-            title = "Drinking Habits by Marital Status", status = "primary", solidHeader = TRUE,
-            selectInput("category10", "Select a category: Drinking Frequency",c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")), 
-            collapsible = TRUE,
-            plotOutput("Marital2", height = 300))
+          tabBox(
+            title = tags$span(style = "color: red;", "Drinking Habits by Marital Status"),
+            # The id lets us use input$tabset1 on the server to find the current tab
+            id = "tabset3", height = "250px",
+            #Marital bar chart
+            tabPanel("Tab1", "First tab content", 
+                     selectInput("category6", "Select a category: Marital", c("Married", "Widowed", "Divorced or separated", "Never married","Living with a partner")),
+                     plotOutput("Marital", height = 300)
+            ),
+            #Marital pie chart
+            tabPanel("Tab2", "Tab content 2",
+                     selectInput("category10", "Select a category: Drinking Frequency",c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
+                     plotOutput("Marital2", height = 300)
+            )
+          ),
+          style = "margin-bottom: 250px;", # Move the next row down by 250px
         ),
+
+################################################################################
         
         fluidRow(
           column(
