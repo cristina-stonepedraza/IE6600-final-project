@@ -26,10 +26,10 @@ ui <- dashboardPage(skin = "red",
   dashboardHeader(title = "Alcohol Use"),
   dashboardSidebar(
     sidebarMenu(tags$img(src = "www/figures/fire.jpg", height = "100px", width = "100%"),
-      menuItem("US & Regional", tabName = "maps"), 
-      menuItem("Demographics", tabName = "demographics"), 
-      menuItem("Effects & Outcomes", tabName = "effects"),
-      menuItem("TEST", tabName = "test")
+      menuItem("US & Regional", tabName = "maps", icon = icon("globe")), 
+      menuItem("Demographics", tabName = "demographics", icon = icon("users")), 
+      menuItem("Effects & Outcomes", tabName = "effects", icon = icon("heartbeat")),
+      menuItem("TEST", tabName = "test", icon = icon("cog"))
     )
   ),
   dashboardBody(
