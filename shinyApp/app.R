@@ -70,7 +70,7 @@ ui <- dashboardPage(skin = "red",
                    title = "Drinking Habits by U.S. Region", status = "warning", solidHeader = TRUE,
                    selectInput("category", "Select a category: Region", c("West", "Midwest", "South", "Northeast")),
                    collapsible = TRUE,
-                   plotOutput("regionChart", height = 300, width = 600),
+                   plotOutput("regionChart", height = 300, width = 400),
                    width = 600
                  ) 
           ),
@@ -79,7 +79,7 @@ ui <- dashboardPage(skin = "red",
               title = "U.S. Regional Frequency by Drinking Habit", status = "warning", solidHeader = TRUE,
               selectInput("category8", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")), 
               collapsible = TRUE,
-              plotOutput("regionChart2", height = 300, width = 600),
+              plotOutput("regionChart2", height = 300, width = 400),
               width = 600
             )
           )
@@ -99,16 +99,16 @@ ui <- dashboardPage(skin = "red",
           tabBox(
             title = NULL,
             # The id lets us use input$tabset1 on the server to find the current tab
-            id = "tabset1", height = "500px",width = 600,
+            id = "tabset1", height = "500px",width = 500,
             # Education bar chart
             tabPanel("Status", " ", 
                      selectInput("category1", "Select a category: Education", c("Less than a high school diploma", "High school or GED", "Some college", "Bachelors degree or higher")),
-                     plotOutput("EducationChart", height = 300, width = 600)
+                     plotOutput("EducationChart", height = 300, width = 500)
                      ),
             # Education bar chart2
             tabPanel("Frequency", " ",
                      selectInput("category7", "Select a category:Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
-                     plotOutput("Education2", height = 300, width = 600)
+                     plotOutput("Education2", height = 300, width = 500)
                      )
           )
           )  
@@ -123,16 +123,16 @@ ui <- dashboardPage(skin = "red",
           tabBox(
             title = NULL, 
             # The id lets us use input$tabset2 on the server to find the current tab
-            id = "tabset2", height = "250px",width = 600,
+            id = "tabset2", height = "250px",width = 500,
             # Family income bar chart
             tabPanel("Status", " ", 
                      selectInput("category5", "Select a category: Family income", c("Less than $35,000", "$35,000–$49,999", "$50,000–$74,999", "$75,000–$99,999","$100,000 or more")),
-                     plotOutput("FamIncome", height = 300, width = 600)
+                     plotOutput("FamIncome", height = 300, width = 500)
             ),
             # Family income bar chart2
             tabPanel("Frequency", " ",
                      selectInput("category9", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
-                     plotOutput("FamIncome2", height = 300, width = 600)
+                     plotOutput("FamIncome2", height = 300, width = 500)
             )
           ),
           style = "margin-bottom: 250px;", # Move the next row down by 250px
@@ -149,16 +149,16 @@ ui <- dashboardPage(skin = "red",
                    tabBox(
                      title = NULL,
                      # The id lets us use input$tabset5 on the server to find the current tab
-                     id = "tabset5", height = "500px",width = 600,
+                     id = "tabset5", height = "500px",width = 550,
                      # Age group pie chart
                      tabPanel("Status", " ", 
                               selectInput("category2", "Select a category: Age", c("18-44","45-64","65-74","75+")),
-                              plotOutput("AgeChart", height = 300, width = 600)
+                              plotOutput("AgeChart", height = 300, width = 550)
                      ),
                      # Age group bar chart
                      tabPanel("Frequency", " ",
                               selectInput("category11", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
-                              plotOutput("Age2", height = 300, width = 600)
+                              plotOutput("Age2", height = 300, width = 550)
                      )
                    )
             )  
@@ -173,16 +173,16 @@ ui <- dashboardPage(skin = "red",
                    tabBox(
                      title = NULL, 
                      # The id lets us use input$tabset6 on the server to find the current tab
-                     id = "tabset6", height = "250px",width = 600,
+                     id = "tabset6", height = "250px",width = 550,
                      # Employment status bar chart
                      tabPanel("Status", " ", 
                               selectInput("category3", "Select a category", c("Employed", "Full-time", "Part-time", "Not employed but has worked previously","Not employed and has never worked")), 
-                              plotOutput("Employee", height = 300, width = 600)
+                              plotOutput("Employee", height = 300, width = 550)
                      ),
                      # Employment status bar chart
                      tabPanel("Frequency", " ",
                               selectInput("category12", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
-                              plotOutput("Employee2", height = 300, width = 600)
+                              plotOutput("Employee2", height = 300, width = 550)
                      )
                    ),
                    style = "margin-bottom: 250px;", # Move the next row down by 250px
@@ -202,12 +202,12 @@ ui <- dashboardPage(skin = "red",
             #Marital bar chart
             tabPanel("Status", " ", 
                      selectInput("category6", "Select a category: Marital", c("Married", "Widowed", "Divorced or separated", "Never married","Living with a partner")),
-                     plotOutput("Marital", height = 300, width = 600)
+                     plotOutput("Marital", height = 300, width = 500)
             ),
             #Marital bar chart2
             tabPanel("Frequency", " ",
                      selectInput("category10", "Select a category: Drinking Frequency",c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
-                     plotOutput("Marital2", height = 300, width = 600)
+                     plotOutput("Marital2", height = 300, width = 500)
             )
           ),
           style = "margin-bottom: 250px;", # Move the next row down by 250px
@@ -242,8 +242,8 @@ ui <- dashboardPage(skin = "red",
                                                                 'Vermont','Virginia','Washington',
                                                                 'West Virginia','Wisconsin','Wyoming')),
               collapsible = TRUE, 
-              plotOutput("lineCauses", height = 300, width = 600), 
-              width = 600
+              plotOutput("lineCauses", height = 300, width = 500), 
+              width = 500
             )
           ), 
           column(width = 6, 
@@ -266,8 +266,8 @@ ui <- dashboardPage(skin = "red",
                                                                 'Vermont','Virginia','Washington',
                                                                 'West Virginia','Wisconsin','Wyoming')), 
               collapsible = TRUE, 
-              plotOutput("densityCauses", height = 300, width = 600), 
-              width = 600
+              plotOutput("densityCauses", height = 300, width = 500), 
+              width = 500
             )
           )
         ), 
