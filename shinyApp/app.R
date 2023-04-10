@@ -51,11 +51,11 @@ ui <- dashboardPage(skin = "red",
               id = "tabset4", height = "250px",
               # alcohol gallon consumption map, region
               tabPanel("Static US Map", "", 
-                plotOutput("usPlot", height = 300, width = 1200)
+                plotOutput("usPlot", height = 300, width = 1100)
               ),
               #new map
               tabPanel("Interactive US Map", "",
-                plotlyOutput("interactive_map", height = 300, width = 1200)
+                plotlyOutput("interactive_map", height = 300, width = 1100)
               )
             ),
             width = 12,
