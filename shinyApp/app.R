@@ -151,7 +151,7 @@ ui <- dashboardPage(skin = "red",
                      id = "tabset5", height = "500px",width = 600,
                      # Age group pie chart
                      tabPanel("Status", " ", 
-                              selectInput("category2", "Select a category: Age", c("18-44", "45-64", "65-74", "75+")),
+                              selectInput("category2", "Select a category: Age", c("18-44 ","45-64 ","65-74 ","75+ ")),
                               plotOutput("AgeChart", height = 300, width = 1000)
                      ),
                      # Age group bar chart
@@ -435,7 +435,7 @@ server <- function(input, output, session) {
     createPieChart(subsetAge_rotated, input$category11)
   })
   
-  #Second page education status tabbox
+  #Second page Employment tabbox
   output$tabset6Selected <- renderText({
     input$tabset6
   })
