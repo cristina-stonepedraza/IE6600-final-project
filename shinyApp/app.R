@@ -1,3 +1,4 @@
+
 # app.R
 
 library(shiny)
@@ -22,11 +23,12 @@ source("www/functions/mapHome.R")
 addResourcePath("figures", "www/figures")
 
 #ui
-ui <- dashboardPage(skin = "red",
+ui <- dashboardPage(skin = "black",
   
   dashboardHeader(title = "Alcohol Use"),
   dashboardSidebar(
     sidebarMenu(tags$img(src = "figures/bo2.jpg", height = "100px", width = "100%"),
+      textInput("search", "Search:", placeholder = "Type here..."),
       menuItem("HOME", tabName = "home", icon = icon("home")), 
       menuItem("US & Regional", tabName = "maps", icon = icon("globe")), 
       menuItem("Demographics", tabName = "demographics", icon = icon("users")), 
@@ -43,28 +45,38 @@ ui <- dashboardPage(skin = "red",
         
         /* Navbar */
         .navbar {
-          background-color: #FFB6C1;
+          background-color: #FFC0CB;
+        }
+        .navbar {
+        border: 1px solid #FFFFFF;
         }
 
         .main-header .navbar {
           background-color:  #FFB6C1;
         }
+        .navbar {
+        border-radius: 10px;
+        }
+        .navbar {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+
 
         /* Background */
         .main-sidebar {
-          background-color:  #FFB6C1;
+          background-color: #FFFFFF;!important
         }
 
         /* Sidebar */
         .main-sidebar .sidebar-menu > li > a {
-          color:#FFB6C1;
+          color:#FFC0CB;
         }
 
         /* Hover and Active */
         .main-sidebar .sidebar-menu > li:hover > a,
         .main-sidebar .sidebar-menu > li.active > a {
-          background-color: #FFB6C1;
-          color: #FFFFFF;
+          background-color: #FFFFFF;
+          color: #DC143C;
         }
       "))
       
@@ -97,23 +109,10 @@ tabItem(tabName = "home",
         fluidRow(
           # Clicking this will increment the progress amount
           box(width = 4, actionButton("count", "Increment progress"))
-          ),
-        
-        #datatable
+        ),
         fluidRow(
-          box(
-            title = "IHME Data Table", status = "danger", solidHeader = TRUE,
-            collapsible = TRUE,width = 12,
-          sidebarLayout(
-            sidebarPanel(
-                checkboxGroupInput("show_vars", "Columns in IHME to show:",
-                                   names(IHME), selected = names(IHME))
-
-            ),
-            mainPanel(DT::dataTableOutput("mytable1"))
+        DT::dataTableOutput("mytable")
         ),
-        ),
-        )
         ),
       
 ######## First tab content################################################
@@ -122,13 +121,31 @@ tabItem(tabName = "home",
         h2("U.S. Drinking Habits Overall"), 
         # alcohol gallon consumption map Tab Box
         fluidRow(
-          box(
-            title = "Gallons Consumed per Person per Year", status = "danger", solidHeader = TRUE,
-            collapsible = TRUE,
-              # alcohol gallon consumption map, region
-                plotOutput("usPlot", height = 300, width = 1100),
-            width = 600
+          column(
+            width = 12,
+            box(
+              title = "Alcohol Consumption",
+              status = "primary",
+              solidHeader = TRUE,
+              collapsible = TRUE,
+              width = 12,
+              fluidRow(
+                column(
+                  width = 2,
+                  selectInput(
+                    "selected_state",
+                    "Select a State:",
+                    choices = unique(alcoholByStateGallons$state)
+                  ),
+                  textOutput("selected_state_consumption")
+                ),
+                column(
+                  width = 8,
+                  plotOutput("usPlot", height = 300, width = 1100)
+                )
               )
+            )
+          )
         ),
         
         # region pie chart 
@@ -222,12 +239,12 @@ tabItem(tabName = "home",
                                          # Age group pie chart
                                          tabPanel("Status", " ", 
                                                   selectInput("category2", "Select a category: Age", c("18-44","45-64","65-74","75+")),
-                                                  plotOutput("AgeChart", height = 300, width = 520)
+                                                  plotOutput("AgeChart", height = 300, width = 550)
                                          ),
                                          # Age group bar chart
                                          tabPanel("Frequency", " ",
                                                   selectInput("category11", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
-                                                  plotOutput("Age2", height = 300, width = 520)
+                                                  plotOutput("Age2", height = 300, width = 550)
                                          )
                                        ),
                                        style = "margin-bottom: 250px;", # Move the next row down by 250px
@@ -242,11 +259,11 @@ tabItem(tabName = "home",
                                        tabBox(
                                          title = NULL, 
                                          # The id lets us use input$tabset6 on the server to find the current tab
-                                         id = "tabset6", height = "250px",width = 520,
+                                         id = "tabset6", height = "250px",width = 550,
                                          # Employment status bar chart
                                          tabPanel("Status", " ", 
                                                   selectInput("category3", "Select a category", c("Employed", "Full-time", "Part-time", "Not employed but has worked previously","Not employed and has never worked")), 
-                                                  plotOutput("Employee", height = 300, width = 520)
+                                                  plotOutput("Employee", height = 300, width = 550)
                                          ),
                                          # Employment status bar chart
                                          tabPanel("Frequency", " ",
@@ -394,13 +411,14 @@ server <- function(input, output, session) {
   
   # First page alcohol consumption map
   output$usPlot <- renderPlot({
-    choropleth_map(alcoholByStateGallons, "alcoholConsumptionGallons")
+    selected_state_data <- alcoholByStateGallons[alcoholByStateGallons$state == input$selected_state, ]
+    choropleth_map(selected_state_data, "alcoholConsumptionGallons")
   })
-  ####test
-  output$interactive_map <- renderPlotly({
-    data <- alcoholByStateGallons
-    var <- "alcoholConsumptionGallons"
-    create_fresh_map(data, var)
+  
+  output$selected_state_consumption <- renderText({
+    selected_state_data <- alcoholByStateGallons[alcoholByStateGallons$state == input$selected_state, ]
+    consumption <- selected_state_data$alcoholConsumptionGallons
+    paste("Alcohol Consumption (Gallons per Person per Year) in", input$selected_state, ":", consumption)
   })
   
   # First page region pie chart
@@ -514,12 +532,9 @@ server <- function(input, output, session) {
       "Approval", "80%", icon = icon("thumbs-up", lib = "glyphicon"),
       color = "yellow", fill = TRUE
     )
-  })
-  
-# IHME Data Table
-  IHME2 = IHME[sample(nrow(IHME), 1000), ]
-  output$mytable1 <- DT::renderDataTable({
-    DT::datatable(IHME2[, input$show_vars, drop = FALSE])
+    output$mytable = DT::renderDataTable({
+      ARDI
+    })
   })
   # Test page Marital radar
   #output$MaritalR <- renderPlot({
