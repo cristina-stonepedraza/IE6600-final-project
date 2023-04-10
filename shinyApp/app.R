@@ -111,9 +111,21 @@ tabItem(tabName = "home",
           box(width = 4, actionButton("count", "Increment progress"))
         ),
         fluidRow(
-        DT::dataTableOutput("mytable")
+          box(
+            title = "IHME Data Table", status = "danger", solidHeader = TRUE,
+            collapsible = TRUE,width = 12,
+            sidebarLayout(
+              sidebarPanel(
+                checkboxGroupInput("show_vars", "Columns in IHME to show:",
+                                   names(IHME), selected = names(IHME))
+                
+              ),
+              mainPanel(DT::dataTableOutput("mytable1"))
+            )
+          )
+        )
         ),
-        ),
+        
       
 ######## First tab content################################################
 
@@ -532,10 +544,13 @@ server <- function(input, output, session) {
       "Approval", "80%", icon = icon("thumbs-up", lib = "glyphicon"),
       color = "yellow", fill = TRUE
     )
-    output$mytable = DT::renderDataTable({
-      ARDI
-    })
   })
+  # IHME Data Table
+  IHME2 = IHME[sample(nrow(IHME), 1000), ]
+  output$mytable1 <- DT::renderDataTable({
+    DT::datatable(IHME2[, input$show_vars, drop = FALSE])
+    })
+
   # Test page Marital radar
   #output$MaritalR <- renderPlot({
     # Check if at least one row is selected
