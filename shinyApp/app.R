@@ -45,10 +45,10 @@ ui <- dashboardPage(skin = "black",
         
         /* Navbar */
         .navbar {
-          background-color: #FFC0CB;
+          background-color: #cccccc;
         }
         .navbar {
-        border: 1px solid #FFFFFF;
+        border: 1px solid #cccccc;
         }
 
         .main-header .navbar {
@@ -69,14 +69,14 @@ ui <- dashboardPage(skin = "black",
 
         /* Sidebar */
         .main-sidebar .sidebar-menu > li > a {
-          color:#FFC0CB;
+          color:#cccccc;
         }
 
         /* Hover and Active */
         .main-sidebar .sidebar-menu > li:hover > a,
         .main-sidebar .sidebar-menu > li.active > a {
           background-color: #FFFFFF;
-          color: #DC143C;
+          color: #333333;
         }
       "))
       
