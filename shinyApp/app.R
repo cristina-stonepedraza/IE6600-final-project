@@ -177,12 +177,12 @@ ui <- dashboardPage(skin = "red",
                      # Employment status bar chart
                      tabPanel("Status", " ", 
                               selectInput("category3", "Select a category", c("Employed", "Full-time", "Part-time", "Not employed but has worked previously","Not employed and has never worked")), 
-                              plotOutput("Employee", height = 300, width = 1000)
+                              plotOutput("Employee", height = 300, width = 600)
                      ),
                      # Employment status bar chart
                      tabPanel("Frequency", " ",
                               selectInput("category12", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
-                              plotOutput("Employee2", height = 300, width = 1000)
+                              plotOutput("Employee2", height = 300, width = 600)
                      )
                    ),
                    style = "margin-bottom: 250px;", # Move the next row down by 250px
@@ -202,12 +202,12 @@ ui <- dashboardPage(skin = "red",
             #Marital bar chart
             tabPanel("Status", " ", 
                      selectInput("category6", "Select a category: Marital", c("Married", "Widowed", "Divorced or separated", "Never married","Living with a partner")),
-                     plotOutput("Marital", height = 300, width = 1000)
+                     plotOutput("Marital", height = 300, width = 600)
             ),
             #Marital bar chart2
             tabPanel("Frequency", " ",
                      selectInput("category10", "Select a category: Drinking Frequency",c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
-                     plotOutput("Marital2", height = 300, width = 1000)
+                     plotOutput("Marital2", height = 300, width = 600)
             )
           ),
           style = "margin-bottom: 250px;", # Move the next row down by 250px
