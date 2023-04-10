@@ -63,22 +63,10 @@ tabItem(tabName = "home",
           box(
             title = "Gallons Consumed per Person per Year", status = "danger", solidHeader = TRUE,
             collapsible = TRUE,
-            tabBox(
-              title = NULL,
-              # The id lets us use input$tabset4 on the server to find the current tab
-              id = "tabset4", height = "250px",
               # alcohol gallon consumption map, region
-              tabPanel("Static US Drinking Map", "", 
-                plotOutput("usPlot", height = 300, width = 1100)
-              ),
-              #new map
-              tabPanel("Interactive US Drinking Map", "",
-                plotlyOutput("interactive_map", height = 300, width = 1100)
+                plotOutput("usPlot", height = 300, width = 1100),
+            width = 600
               )
-            ),
-            width = 12,
-            style = "margin-bottom: 250px;", # Move the next row down by 250px
-          )
         ),
         
         # region pie chart 
