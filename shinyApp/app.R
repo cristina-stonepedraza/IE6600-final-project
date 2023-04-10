@@ -30,8 +30,7 @@ ui <- dashboardPage(skin = "red",
       menuItem("HOME", tabName = "home", icon = icon("home")), 
       menuItem("US & Regional", tabName = "maps", icon = icon("globe")), 
       menuItem("Demographics", tabName = "demographics", icon = icon("users")), 
-      menuItem("Effects & Outcomes", tabName = "effects", icon = icon("heartbeat")),
-      menuItem("TEST", tabName = "test", icon = icon("cog"))
+      menuItem("Effects & Outcomes", tabName = "effects", icon = icon("heartbeat"))
     )
   ),
   dashboardBody(
@@ -39,6 +38,7 @@ ui <- dashboardPage(skin = "red",
 ######## Home content######################################################
 tabItem(tabName = "home",
         h2("U.S. Drinking Habits Overall"), 
+
         # alcohol gallon consumption map Tab Box
         fluidRow(
           box(
@@ -52,6 +52,17 @@ tabItem(tabName = "home",
               style = "margin-bottom: 250px;", # Move the next row down by 250px
           )
          ),
+        #test info box
+        # infoBoxes with fill=TRUE
+        fluidRow(
+          infoBox("New Orders", 10 * 2, icon = icon("credit-card"), fill = TRUE),
+          infoBoxOutput("progressBox2"),
+          infoBoxOutput("approvalBox2")
+        ),
+        fluidRow(
+          # Clicking this will increment the progress amount
+          box(width = 4, actionButton("count", "Increment progress"))
+        ),
         ),
       
 ######## First tab content################################################
@@ -311,46 +322,9 @@ tabItem(tabName = "home",
             )
           ),
         )
-        
-      ),
+      )
       
-######## TEST################################################################################################
-        
-        tabItem(tabName = "test", 
-              h2("TEST"),
-              #test info box
-              # infoBoxes with fill=TRUE
-              fluidRow(
-                infoBox("New Orders", 10 * 2, icon = icon("credit-card"), fill = TRUE),
-                infoBoxOutput("progressBox2"),
-                infoBoxOutput("approvalBox2")
-              ),
-              fluidRow(
-                # Clicking this will increment the progress amount
-                box(width = 4, actionButton("count", "Increment progress"))
-              ),
-              # Radar
-              #fluidRow(
-              #  column(width = 4,
-              #         selectInput("category_row1", "Alcohol Consumption", c("Current Regular", "Lifetime Abstainer", "Current Infrequent","Former Infrequent","Former Regular"), selected = "Current Regular")
-              #  ),
-              #  column(width = 4,
-              #         selectizeInput("category_col1", "Marital Status:", choices = c("Married", "Widowed", "Never married","Divorced or separated","Living with a partner"), multiple = TRUE, selected =c("Married", "Widowed", "Never married","Divorced or separated","Living with a partner"))
-                #####you can choose mutiply choice by using multiple = TRUE
-              #         ),
-              #  box(width = 6, collapsible = TRUE,
-              #         fluidRow(
-              #           valueBox(
-              #             "Married", "IDK how to put value on",
-              #             color = "yellow"
-              #           )
-              #         ),
-              #         plotOutput("MaritalR", height = 500)
-              #      )
-              #    )
-        )# TEST tabItem
-
-    ) # tabItems
+   ) # tabItems
   ) # dashboardBody
 )# dashboardPage
 ######## Server ##########################################################
