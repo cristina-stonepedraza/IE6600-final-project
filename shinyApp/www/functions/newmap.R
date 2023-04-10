@@ -31,7 +31,8 @@ create_fresh_map <- function(data, var) {
     theme(
       legend.position = "none",
       plot.title = element_text(hjust = 0.5)
-    ) 
+    ) + 
+    labs(x = "Latitude", y = "Longitud ")
   
   # Using plotly to make graphs interactive
   p <- ggplotly(p, tooltip = "text")

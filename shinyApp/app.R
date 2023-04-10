@@ -39,28 +39,29 @@ ui <- dashboardPage(skin = "red",
 ######## First tab content################################################
 
       tabItem(tabName = "maps",
-              h2("U.S. Drinking Habits Overall"), 
+        h2("U.S. Drinking Habits Overall"), 
         # alcohol gallon consumption map Tab Box
         fluidRow(
           box(
             title = "Gallons Consumed per Person per Year", status = "danger", solidHeader = TRUE,
             collapsible = TRUE,
-          tabBox(
-            title = NULL,
-            # The id lets us use input$tabset4 on the server to find the current tab
-            id = "tabset4", height = "250px",
-            # alcohol gallon consumption map, region
-            tabPanel("Tab1", "First tab content", 
-                     plotOutput("usPlot", height = 300, width = 1000)
+            tabBox(
+              title = NULL,
+              # The id lets us use input$tabset4 on the server to find the current tab
+              id = "tabset4", height = "250px",
+              # alcohol gallon consumption map, region
+              tabPanel("Static US Map", "", 
+                plotOutput("usPlot", height = 300, width = 1200)
+              ),
+              #new map
+              tabPanel("Interactive US Map", "",
+                plotlyOutput("interactive_map", height = 300, width = 1200)
+              )
             ),
-            #new map
-            tabPanel("Tab2", "Tab content 2",
-                     plotlyOutput("interactive_map", height = 300, width = 1000)
-            )
-          ),
-          style = "margin-bottom: 250px;", # Move the next row down by 250px
+            width = 12,
+            style = "margin-bottom: 250px;", # Move the next row down by 250px
           )
-          ),
+        ),
         
         # region pie chart 
         fluidRow(
@@ -75,7 +76,7 @@ ui <- dashboardPage(skin = "red",
           ),
           column(width = 6,
             box(
-              title = "Drinking Habits by U.S. Region", status = "warning", solidHeader = TRUE,
+              title = "U.S. Regional Frequency by Drinking Habit", status = "warning", solidHeader = TRUE,
               selectInput("category8", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")), 
               collapsible = TRUE,
               plotOutput("regionChart2", height = 300, width = 600),
@@ -102,12 +103,12 @@ ui <- dashboardPage(skin = "red",
             # Education bar chart
             tabPanel("Status", " ", 
                      selectInput("category1", "Select a category: Education", c("Less than a high school diploma", "High school or GED", "Some college", "Bachelors degree or higher")),
-                     plotOutput("EducationChart", height = 300, width = 1000)
+                     plotOutput("EducationChart", height = 300, width = 600)
                      ),
             # Education bar chart2
             tabPanel("Frequency", " ",
                      selectInput("category7", "Select a category:Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
-                     plotOutput("Education2", height = 300, width = 1000)
+                     plotOutput("Education2", height = 300, width = 600)
                      )
           )
           )  
@@ -126,12 +127,12 @@ ui <- dashboardPage(skin = "red",
             # Family income bar chart
             tabPanel("Status", " ", 
                      selectInput("category5", "Select a category: Family income", c("Less than $35,000", "$35,000–$49,999", "$50,000–$74,999", "$75,000–$99,999","$100,000 or more")),
-                     plotOutput("FamIncome", height = 300, width = 1000)
+                     plotOutput("FamIncome", height = 300, width = 600)
             ),
             # Family income bar chart2
             tabPanel("Frequency", " ",
                      selectInput("category9", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
-                     plotOutput("FamIncome2", height = 300, width = 1000)
+                     plotOutput("FamIncome2", height = 300, width = 600)
             )
           ),
           style = "margin-bottom: 250px;", # Move the next row down by 250px
@@ -152,12 +153,12 @@ ui <- dashboardPage(skin = "red",
                      # Age group pie chart
                      tabPanel("Status", " ", 
                               selectInput("category2", "Select a category: Age", c("18-44","45-64","65-74","75+")),
-                              plotOutput("AgeChart", height = 300, width = 1000)
+                              plotOutput("AgeChart", height = 300, width = 600)
                      ),
                      # Age group bar chart
                      tabPanel("Frequency", " ",
                               selectInput("category11", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
-                              plotOutput("Age2", height = 300, width = 1000)
+                              plotOutput("Age2", height = 300, width = 600)
                      )
                    )
             )  
