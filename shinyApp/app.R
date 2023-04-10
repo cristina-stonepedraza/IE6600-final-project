@@ -19,7 +19,6 @@ source("www/functions/statePlot.R")
 source("www/functions/ridgeline.R")
 source("www/functions/multiLine.R")
 addResourcePath("figures", "www/figures")
-setwd("/Users/cherryj./Desktop/IE6600-Computation and Visualization for Analytics/Project/IE6600-final-project/shinyApp")
 
 #ui
 ui <- dashboardPage(skin = "red",
@@ -325,24 +324,24 @@ ui <- dashboardPage(skin = "red",
                 box(width = 4, actionButton("count", "Increment progress"))
               ),
               # Radar
-              fluidRow(
-                column(width = 4,
-                       selectInput("category_row1", "Alcohol Consumption", c("Current Regular", "Lifetime Abstainer", "Current Infrequent","Former Infrequent","Former Regular"), selected = "Current Regular")
-                ),
-                column(width = 4,
-                       selectizeInput("category_col1", "Marital Status:", choices = c("Married", "Widowed", "Never married","Divorced or separated","Living with a partner"), multiple = TRUE, selected =c("Married", "Widowed", "Never married","Divorced or separated","Living with a partner"))
+              #fluidRow(
+              #  column(width = 4,
+              #         selectInput("category_row1", "Alcohol Consumption", c("Current Regular", "Lifetime Abstainer", "Current Infrequent","Former Infrequent","Former Regular"), selected = "Current Regular")
+              #  ),
+              #  column(width = 4,
+              #         selectizeInput("category_col1", "Marital Status:", choices = c("Married", "Widowed", "Never married","Divorced or separated","Living with a partner"), multiple = TRUE, selected =c("Married", "Widowed", "Never married","Divorced or separated","Living with a partner"))
                 #####you can choose mutiply choice by using multiple = TRUE
-                       ),
-                box(width = 6, collapsible = TRUE,
-                       fluidRow(
-                         valueBox(
-                           "Married", "IDK how to put value on",
-                           color = "yellow"
-                         )
-                       ),
-                       plotOutput("MaritalR", height = 500)
-                    )
-                  )
+              #         ),
+              #  box(width = 6, collapsible = TRUE,
+              #         fluidRow(
+              #           valueBox(
+              #             "Married", "IDK how to put value on",
+              #             color = "yellow"
+              #           )
+              #         ),
+              #         plotOutput("MaritalR", height = 500)
+              #      )
+              #    )
         )# TEST tabItem
 
     ) # tabItems
@@ -481,22 +480,22 @@ server <- function(input, output, session) {
     )
   })
   # Test page Marital radar
-  output$MaritalR <- renderPlot({
+  #output$MaritalR <- renderPlot({
     # Check if at least one row is selected
-    if (length(input$category_row1) < 1) {
-      return(validate(need("Select at least one row.", type = "error")))
-    }
+    #if (length(input$category_row1) < 1) {
+    #  return(validate(need("Select at least one row.", type = "error")))
+    #}
     
     # Check if at least three columns are selected
-    if (length(input$category_col1) < 3) {
-      return(validate(need("Select at least three columns.", type = "error")))
-    }
-    create_radarchart(
-      subsetMarital, max_value = 72000, min_value = 500, 
-      selected_rows = input$category_row1,
-      selected_columns = input$category_col1
-    )
-  })
+    #if (length(input$category_col1) < 3) {
+    #  return(validate(need("Select at least three columns.", type = "error")))
+    #}
+    #create_radarchart(
+    #  subsetMarital, max_value = 72000, min_value = 500, 
+    #  selected_rows = input$category_row1,
+    #  selected_columns = input$category_col1
+    #)
+  #})
   
 }
 
