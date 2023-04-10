@@ -242,8 +242,8 @@ ui <- dashboardPage(skin = "red",
                                                                 'Vermont','Virginia','Washington',
                                                                 'West Virginia','Wisconsin','Wyoming')),
               collapsible = TRUE, 
-              plotOutput("lineCauses", height = 300, width = 500), 
-              width = 500
+              plotOutput("lineCauses", height = 300, width = 550), 
+              width = 550
             )
           ), 
           column(width = 6, 
@@ -266,8 +266,8 @@ ui <- dashboardPage(skin = "red",
                                                                 'Vermont','Virginia','Washington',
                                                                 'West Virginia','Wisconsin','Wyoming')), 
               collapsible = TRUE, 
-              plotOutput("densityCauses", height = 300, width = 500), 
-              width = 500
+              plotOutput("densityCauses", height = 300, width = 550), 
+              width = 550
             )
           )
         ), 
