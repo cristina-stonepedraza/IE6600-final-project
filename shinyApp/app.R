@@ -42,43 +42,28 @@ ui <- dashboardPage(skin = "red",
               h2("U.S. Drinking Habits Overall"), 
         # alcohol gallon consumption map Tab Box
         fluidRow(
+          box(
+            title = "Gallons Consumed per Person per Year", status = "danger", solidHeader = TRUE,
+            collapsible = TRUE,
           tabBox(
-            title = tags$span(style = "color: red;", "Gallons Consumed per Person per Year"),
+            title = NULL,
             # The id lets us use input$tabset4 on the server to find the current tab
             id = "tabset4", height = "250px",
             # alcohol gallon consumption map, region
             tabPanel("Tab1", "First tab content", 
-                     plotOutput("usPlot", height = 300)
+                     plotOutput("usPlot", height = 300, width = 1000)
             ),
             #new map
             tabPanel("Tab2", "Tab content 2",
-                     plotlyOutput("interactive_map", height = 300)
+                     plotlyOutput("interactive_map", height = 300, width = 1000)
             )
           ),
           style = "margin-bottom: 250px;", # Move the next row down by 250px
-        ),
+          )
+          ),
         
-        
-#        fluidRow(
-#          column(width = 6,
-#            box(
-#              title = "Gallons Consumed per Person per Year", status = "danger", solidHeader = TRUE,
-#              collapsible = TRUE,
-#              plotOutput("usPlot", height = 375, width = 600), 
-#              width = 600
-#            )
-#          )
-#        ),
-        # new mappp lol
-#        fluidRow(
-#          box(
-#            title = "Gallons Consumed per Person per Year", status = "danger", solidHeader = TRUE,
-#            plotlyOutput("interactive_map"),
-#            width = 600)
-#        ),
-        
+        # region pie chart 
         fluidRow(
-          # region pie chart
           column(width = 6,
                  box(
                    title = "Drinking Habits by U.S. Region", status = "warning", solidHeader = TRUE,
@@ -106,115 +91,178 @@ ui <- dashboardPage(skin = "red",
         
         #Education tab Box
         fluidRow(
+          box(
+            title = "Drinking Habits by Education Level", status = "primary", solidHeader = TRUE,
+            collapsible = TRUE,
           column(width = 6,
           tabBox(
-            title = tags$span(style = "color: Blue;", "Drinking Habits by Education Level"),
+            title = NULL,
             # The id lets us use input$tabset1 on the server to find the current tab
-            id = "tabset1", height = "250px",width = 600,
+            id = "tabset1", height = "550px",width = 600,
             # Education bar chart
             tabPanel("Status", " ", 
                      selectInput("category1", "Select a category: Education", c("Less than a high school diploma", "High school or GED", "Some college", "Bachelors degree or higher")),
-                     plotOutput("EducationChart", height = 300)
+                     plotOutput("EducationChart", height = 300, width = 1000)
                      ),
             # Education bar chart2
             tabPanel("Frequency", " ",
                      selectInput("category7", "Select a category:Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
-                     plotOutput("Education2", height = 300)
+                     plotOutput("Education2", height = 300, width = 1000)
                      )
           )
-            ),
+          )  
+          ),
 
                     
           #Family income tab Box
+          box(
+            title = "Drinking Habits by Family Income Level", status = "success", solidHeader = TRUE,
+            collapsible = TRUE,
           column(width = 6,
           tabBox(
-            title = tags$span(style = "color: Green;", "Drinking Habits by Family Income Level"), 
+            title = NULL, 
             # The id lets us use input$tabset2 on the server to find the current tab
             id = "tabset2", height = "250px",width = 600,
             # Family income bar chart
             tabPanel("Status", " ", 
                      selectInput("category5", "Select a category: Family income", c("Less than $35,000", "$35,000–$49,999", "$50,000–$74,999", "$75,000–$99,999","$100,000 or more")),
-                     plotOutput("FamIncome", height = 300)
+                     plotOutput("FamIncome", height = 300, width = 1000)
             ),
             # Family income bar chart2
             tabPanel("Frequency", " ",
                      selectInput("category9", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
-                     plotOutput("FamIncome2", height = 300)
+                     plotOutput("FamIncome2", height = 300, width = 1000)
             )
           ),
           style = "margin-bottom: 250px;", # Move the next row down by 250px
+          )
           )
           ),
 
         
         #Marital tab box
         fluidRow(
+          box(
+            title = "Drinking Habits by Marital Status", status = "danger", solidHeader = TRUE,
+            collapsible = TRUE,
           tabBox(
-            title = tags$span(style = "color: red;", "Drinking Habits by Marital Status"),
+            title = NULL,
             # The id lets us use input$tabset3 on the server to find the current tab
             id = "tabset3", height = "250px",
             #Marital bar chart
             tabPanel("Status", " ", 
                      selectInput("category6", "Select a category: Marital", c("Married", "Widowed", "Divorced or separated", "Never married","Living with a partner")),
-                     plotOutput("Marital", height = 300)
+                     plotOutput("Marital", height = 300, width = 1000)
             ),
             #Marital bar chart2
             tabPanel("Frequency", " ",
                      selectInput("category10", "Select a category: Drinking Frequency",c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
-                     plotOutput("Marital2", height = 300)
+                     plotOutput("Marital2", height = 300, width = 1000)
             )
           ),
           style = "margin-bottom: 250px;", # Move the next row down by 250px
-        ),
+          )
+           ),
 
 ################################################################################
-        
-        fluidRow(
-          column(
-            width = 6,
+
+#Age group tab Box
+fluidRow(
+  box(
+    title = "Drinking Habits by Age Group", status = "primary", solidHeader = TRUE,
+    collapsible = TRUE,
+    column(width = 6,
+           tabBox(
+             title = NULL,
+             # The id lets us use input$tabset5 on the server to find the current tab
+             id = "tabset5", height = "550px",width = 600,
+             # Age group pie chart
+             tabPanel("Status", " ", 
+                      selectInput("category2", "Select a category: Age", c("18-44", "45-64", "65-74", "75+")),
+                      plotOutput("AgeChart", height = 300, width = 1000)
+             ),
+             # Age group bar chart
+             tabPanel("Frequency", " ",
+                      selectInput("category11", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
+                      plotOutput("Age2", height = 300, width = 1000)
+             )
+           )
+    )  
+  ),
+  
+  
+  #Employment tab Box
+  box(
+    title = "Drinking Habits by Employment Status", status = "warning", solidHeader = TRUE,
+    collapsible = TRUE,
+    column(width = 6,
+           tabBox(
+             title = NULL, 
+             # The id lets us use input$tabset6 on the server to find the current tab
+             id = "tabset6", height = "250px",width = 600,
+             # Employment status bar chart
+             tabPanel("Status", " ", 
+                      selectInput("category3", "Select a category", c("Employed", "Full-time", "Part-time", "Not employed but has worked previously","Not employed and has never worked")), 
+                      plotOutput("Employee", height = 300, width = 1000)
+             ),
+             # Employment status bar chart
+             tabPanel("Frequency", " ",
+                      selectInput("category12", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
+                      plotOutput("Employee2", height = 300, width = 1000)
+             )
+           ),
+           style = "margin-bottom: 250px;", # Move the next row down by 250px
+    )
+  )
+),
+
+
+      
+#  fluidRow(
+ #         column(
+#            width = 6,
             # Age group pie chart
-            box(
-              title = "Drinking Habits by Age Group", status = "success", solidHeader = TRUE,
-              selectInput("category2", "Select a category: Age", c("18-44", "45-64", "65-74", "75+")), 
-              collapsible = TRUE,
-              plotOutput("AgeChart", height = 300, width = 600),
-              width = 600
-            )
-          ),
+#            box(
+#              title = "Drinking Habits by Age Group", status = "success", solidHeader = TRUE,
+#              selectInput("category2", "Select a category: Age", c("18-44", "45-64", "65-74", "75+")), 
+#              collapsible = TRUE,
+#              plotOutput("AgeChart", height = 300, width = 600),
+#              width = 600
+#            )
+#          ),
           
           # Create employment status bar chart
-          column(
-            width = 6,
-            selectInput("category3", "Select a category", c("Employed", "Full-time", "Part-time", "Not employed but has worked previously","Not employed and has never worked")), 
-            box(
-              title = "Drinking Habits by Employment Status", status = "info", solidHeader = TRUE,
-              selectInput("category3", "Select a category", c("Employed", "Full-time", "Part-time", "Not employed but has worked previously","Not employed and has never worked")), 
-              collapsible = TRUE,
-              plotOutput("Employee", height = 300,width = 600), 
-              width = 600
-            )
-          )
-        ),
+#          column(
+#            width = 6,
+#            box(
+#              title = "Drinking Habits by Employment Status", status = "info", solidHeader = TRUE,
+#              selectInput("category3", "Select a category", c("Employed", "Full-time", "Part-time", "Not employed but has worked previously","Not employed and has never worked")), 
+#              collapsible = TRUE,
+#              plotOutput("Employee", height = 300,width = 600), 
+#              width = 600
+#            )
+#          )
+#        ),
         
-        fluidRow(
+#        fluidRow(
           # Age group bar chart
-          box(
-            title = "Drinking Habits by Age Group", status = "primary", solidHeader = TRUE,
-            selectInput("category11", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")), 
-            collapsible = TRUE,
-            plotOutput("Age2", height = 300)) 
-        ),
+#          box(
+#            title = "Drinking Habits by Age Group", status = "primary", solidHeader = TRUE,
+#            selectInput("category11", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")), 
+#            collapsible = TRUE,
+#            plotOutput("Age2", height = 300)) 
+#        ),
         
-        fluidRow(
+#        fluidRow(
           # Employment status bar chart
-          box(
-            title = "Drinking Habits by Employment Status", status = "primary", solidHeader = TRUE,
-            selectInput("category12", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
-            collapsible = TRUE,
-            plotOutput("Employee2", height = 300)) 
-        )
+#          box(
+#            title = "Drinking Habits by Employment Status", status = "primary", solidHeader = TRUE,
+#            selectInput("category12", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
+#            collapsible = TRUE,
+#            plotOutput("Employee2", height = 300)) 
+#        )
         
-      ), 
+#      ), 
       
 ######## Third page##########################################################################
       tabItem(tabName = "effects", 
@@ -345,7 +393,7 @@ ui <- dashboardPage(skin = "red",
 
     ) # tabItems
   ) # dashboardBody
-) # dashboardPage
+# dashboardPage
 ######## Server ##########################################################
 
 # Define server input and output
@@ -405,7 +453,7 @@ server <- function(input, output, session) {
   output$FamIncome2 <- renderPlot({
     incomeHabits(input$category9)
   })
-  #Second page Family income tab box 3
+  #Second page Marital tab box 3
   output$tabset3Selected <- renderText({
     input$tabset3
   })
@@ -420,7 +468,11 @@ server <- function(input, output, session) {
     maritalHabits(input$category10)
   })
   
-
+  #Second page age group tabbox
+  output$tabset5Selected <- renderText({
+    input$tabset5
+  })
+  
   # Second Page age pie chart 
   output$AgeChart <- renderPlot({
     createPieChart(subsetAge, input$category2)
@@ -429,6 +481,11 @@ server <- function(input, output, session) {
   # Second Page Age pie chart2
   output$Age2 <- renderPlot({
     createPieChart(subsetAge_rotated, input$category11)
+  })
+  
+  #Second page education status tabbox
+  output$tabset6Selected <- renderText({
+    input$tabset6
   })
   
   # Second page employment pie chart
