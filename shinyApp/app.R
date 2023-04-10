@@ -98,6 +98,9 @@ tabItem(tabName = "home",
           # Clicking this will increment the progress amount
           box(width = 4, actionButton("count", "Increment progress"))
         ),
+        fluidRow(
+        DT::dataTableOutput("mytable")
+        ),
         ),
       
 ######## First tab content################################################
@@ -498,6 +501,9 @@ server <- function(input, output, session) {
       "Approval", "80%", icon = icon("thumbs-up", lib = "glyphicon"),
       color = "yellow", fill = TRUE
     )
+    output$mytable = DT::renderDataTable({
+      ARDI
+    })
   })
   # Test page Marital radar
   #output$MaritalR <- renderPlot({
