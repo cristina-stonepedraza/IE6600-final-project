@@ -18,6 +18,7 @@ source("www/functions/ageHabits.R")
 source("www/functions/statePlot.R")
 source("www/functions/ridgeline.R")
 source("www/functions/multiLine.R")
+source("www/functions/mapHome.R")
 addResourcePath("figures", "www/figures")
 
 #ui
@@ -35,6 +36,23 @@ ui <- dashboardPage(skin = "red",
   ),
   dashboardBody(
     tabItems(
+######## Home content######################################################
+tabItem(tabName = "home",
+        h2("U.S. Drinking Habits Overall"), 
+        # alcohol gallon consumption map Tab Box
+        fluidRow(
+          box(
+            title = "Gallons Consumed per Person per Year", status = "danger", solidHeader = TRUE,
+            collapsible = TRUE,
+               #new map
+              tabPanel("Interactive US Drinking Map", "",
+                       plotlyOutput("interactive_map_home", height = 300, width = 1100)
+                ),
+              width = 12,
+              style = "margin-bottom: 250px;", # Move the next row down by 250px
+          )
+         ),
+        ),
       
 ######## First tab content################################################
 
@@ -351,6 +369,12 @@ ui <- dashboardPage(skin = "red",
 
 # Define server input and output
 server <- function(input, output, session) {
+  # Home page
+  output$interactive_map_home <- renderPlotly({
+    data <-IHME
+    var <- "val"
+    create_fresh_map_home(data, var)
+  })
   #Second page alcohol consumption map tab box 4
   output$tabset4Selected <- renderText({
     input$tabset4
