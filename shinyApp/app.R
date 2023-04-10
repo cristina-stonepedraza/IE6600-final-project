@@ -19,6 +19,7 @@ source("www/functions/statePlot.R")
 source("www/functions/ridgeline.R")
 source("www/functions/multiLine.R")
 addResourcePath("figures", "www/figures")
+setwd("/Users/cherryj./Desktop/IE6600-Computation and Visualization for Analytics/Project/IE6600-final-project/shinyApp")
 
 #ui
 ui <- dashboardPage(skin = "red",
@@ -50,11 +51,11 @@ ui <- dashboardPage(skin = "red",
               # The id lets us use input$tabset4 on the server to find the current tab
               id = "tabset4", height = "250px",
               # alcohol gallon consumption map, region
-              tabPanel("Static US Map", "", 
+              tabPanel("Static US Drinking Map", "", 
                 plotOutput("usPlot", height = 300, width = 1100)
               ),
               #new map
-              tabPanel("Interactive US Map", "",
+              tabPanel("Interactive US Drinking Map", "",
                 plotlyOutput("interactive_map", height = 300, width = 1100)
               )
             ),
