@@ -197,16 +197,16 @@ ui <- dashboardPage(skin = "black",
                                        tabBox(
                                          title = NULL,
                                          # The id lets us use input$tabset5 on the server to find the current tab
-                                         id = "tabset5", height = "500px",width = 550,
+                                         id = "tabset5", height = "500px",width = 500,
                                          # Age group pie chart
                                          tabPanel("Status", " ", 
                                                   selectInput("category2", "Select a category: Age", c("18-44","45-64","65-74","75+")),
-                                                  plotOutput("AgeChart", height = 300, width = 550)
+                                                  plotOutput("AgeChart", height = 300, width = 500)
                                          ),
                                          # Age group bar chart
                                          tabPanel("Frequency", " ",
                                                   selectInput("category11", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
-                                                  plotOutput("Age2", height = 300, width = 550)
+                                                  plotOutput("Age2", height = 300, width = 500)
                                          )
                                        ),
                                        style = "margin-bottom: 250px;", # Move the next row down by 250px
@@ -222,16 +222,16 @@ ui <- dashboardPage(skin = "black",
                                        tabBox(
                                          title = NULL, 
                                          # The id lets us use input$tabset6 on the server to find the current tab
-                                         id = "tabset6", height = "250px",width = 550,
+                                         id = "tabset6", height = "250px",width = 500,
                                          # Employment status bar chart
                                          tabPanel("Status", " ", 
                                                   selectInput("category3", "Select a category", c("Employed", "Full-time", "Part-time", "Not employed but has worked previously","Not employed and has never worked")), 
-                                                  plotOutput("Employee", height = 300, width = 550)
+                                                  plotOutput("Employee", height = 300, width = 500)
                                          ),
                                          # Employment status bar chart
                                          tabPanel("Frequency", " ",
                                                   selectInput("category12", "Select a category: Drinking Frequency", c("Lifetime Abstainer", "Former Infrequent", "Former Regular", "Current Infrequent","Current Regular")),
-                                                  plotOutput("Employee2", height = 300, width = 550)
+                                                  plotOutput("Employee2", height = 300, width = 500)
                                          )
                                        ),
                                        style = "margin-bottom: 250px;", # Move the next row down by 250px
