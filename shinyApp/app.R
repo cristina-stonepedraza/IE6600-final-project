@@ -1,6 +1,9 @@
 # app.R
-rsconnect::setAccountInfo(name='ze87zv-cheryl-j0', token='CDE52DDD4D9C6BB88F268EB5D5DE347B', secret='gWR+7GCO1M209drfKzTHamP75TlUhSkxT0NRojC5')
-rsconnect::deployApp('/Users/cherryj./Desktop/IE6600-Computation and Visualization for Analytics/Project/IE6600-final-project/shinyApp')
+#rsconnect::setAccountInfo(name='ze87zv-cheryl-j0', token='CDE52DDD4D9C6BB88F268EB5D5DE347B', secret='gWR+7GCO1M209drfKzTHamP75TlUhSkxT0NRojC5')
+#rsconnect::deployApp('/Users/cherryj./Desktop/IE6600-Computation and Visualization for Analytics/Project/IE6600-final-project/shinyApp')
+
+#library(rsconnect)
+#rsconnect::deployApp('~/VSCode/NEU/IE6600/Project/IE6600-final-project/shinyApp')
 
 library(shiny)
 library(shinydashboard)
@@ -21,7 +24,7 @@ source("www/functions/statePlot.R")
 source("www/functions/ridgeline.R")
 source("www/functions/multiLine.R")
 source("www/functions/mapHome.R")
-addResourcePath("figures", "www/figures")
+#addResourcePath("figures", "www/figures")
 
 #ui
 ui <- dashboardPage(skin = "black",
