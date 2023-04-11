@@ -47,6 +47,8 @@ subsetAge$X2 <- as.numeric(subsetAge$X2)
 subsetAge$X3 <- as.numeric(subsetAge$X3)
 subsetAge$X4 <- as.numeric(subsetAge$X4)
 
+subsetAge$Type = rownames(subsetAge)
+
 colnames(subsetAge)[colnames(subsetAge) == 'X1'] <- '18-44'
 colnames(subsetAge)[colnames(subsetAge) == 'X2'] <- '45-64'
 colnames(subsetAge)[colnames(subsetAge) == 'X3'] <- '65-74'
@@ -54,12 +56,11 @@ colnames(subsetAge)[colnames(subsetAge) == 'X4'] <- '75+'
 
 
 subsetAge_rotated <- t(subsetAge[ , -5])
-rownames(subsetAge_rotated) <- colnames(subsetAge)
-colnames(subsetAge_rotated) <- rownames(subsetAge)
 
 subsetAge_rotated <- data.frame(subsetAge_rotated)
 
 subsetAge_rotated$Type = rownames(subsetAge_rotated)
+
 
 colnames(subsetAge_rotated)[colnames(subsetAge_rotated) == 'Lifetime.Abstainer'] <- 'Lifetime Abstainer'
 colnames(subsetAge_rotated)[colnames(subsetAge_rotated) == 'Former.Infrequent'] <- 'Former Infrequent'
