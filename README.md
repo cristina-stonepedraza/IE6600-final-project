@@ -1,7 +1,7 @@
 # IE6600-final-project
 ## Project Title: Alcohol Use
 
-###Datasets
+##Datasets
 US Binge Drinking Frequency by State - CDC
 https://www.cdc.gov/alcohol/data-stats.htm 
 
