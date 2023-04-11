@@ -29,7 +29,6 @@ ui <- dashboardPage(skin = "black",
   dashboardSidebar(
     sidebarMenu(tags$img(src = "figures/bo2.jpg", height = "100px", width = "100%"),
       textInput("search", "Search:", placeholder = "Type here..."),
-      menuItem("HOME", tabName = "home", icon = icon("home")), 
       menuItem("US & Regional", tabName = "maps", icon = icon("globe")), 
       menuItem("Demographics", tabName = "demographics", icon = icon("users")), 
       menuItem("Effects & Outcomes", tabName = "effects", icon = icon("heartbeat"))
@@ -82,51 +81,7 @@ ui <- dashboardPage(skin = "black",
       
     ),
     tabItems(
-######## Home content######################################################
-tabItem(tabName = "home",
-        h2("U.S. Drinking Habits Overall"), 
 
-        # alcohol gallon consumption map Tab Box
-        fluidRow(
-          box(
-            title = "Gallons Consumed per Person per Year", status = "danger", solidHeader = TRUE,
-            collapsible = TRUE,
-               #new map
-              tabPanel("Interactive US Drinking Map", "",
-                       plotlyOutput("interactive_map_home", height = 300, width = 1100)
-                ),
-              width = 12,
-              style = "margin-bottom: 250px;", # Move the next row down by 250px
-          )
-         ),
-        #test info box
-        # infoBoxes with fill=TRUE
-        fluidRow(
-          infoBox("New Orders", 10 * 2, icon = icon("credit-card"), fill = TRUE),
-          infoBoxOutput("progressBox2"),
-          infoBoxOutput("approvalBox2")
-        ),
-        fluidRow(
-          # Clicking this will increment the progress amount
-          box(width = 4, actionButton("count", "Increment progress"))
-        ),
-        fluidRow(
-          box(
-            title = "IHME Data Table", status = "danger", solidHeader = TRUE,
-            collapsible = TRUE,width = 12,
-            sidebarLayout(
-              sidebarPanel(
-                checkboxGroupInput("show_vars", "Columns in IHME to show:",
-                                   names(IHME), selected = names(IHME))
-                
-              ),
-              mainPanel(DT::dataTableOutput("mytable1"))
-            )
-          )
-        )
-        ),
-        
-      
 ######## First tab content################################################
 
       tabItem(tabName = "maps",
@@ -136,9 +91,21 @@ tabItem(tabName = "home",
           box(
             title = "Gallons Consumed per Person per Year", status = "danger", solidHeader = TRUE,
             collapsible = TRUE,
-            # alcohol gallon consumption map, region
-            plotOutput("usPlot", height = 300, width = 1100),
-            width = 600
+            tabBox(
+              title = NULL,
+              # The id lets us use input$tabset4 on the server to find the current tab
+              id = "tabset4", height = "250px", width = 1100,
+              #New Map
+              tabPanel("Interactive US Drinking Map", " ", 
+                       plotlyOutput("interactive_map_home", height = 300, width = 1100)
+              ),
+              #Map function
+              tabPanel("Static US Drinking Map", " ",
+                       plotOutput("usPlot", height = 300, width = 1100)
+              )
+            ),
+            width = 1100,
+            style = "margin-bottom: 250px;", # Move the next row down by 250px
           )
         ),
         
@@ -172,6 +139,7 @@ tabItem(tabName = "home",
         #Education tab Box
         fluidRow(
           navbarPage(title = "",
+                     #tab panel: Education levrl
                      tabPanel("Education Level", 
                               box(
                                 title = "Drinking Habits by Education Level", status = "primary", solidHeader = TRUE,
@@ -195,8 +163,7 @@ tabItem(tabName = "home",
                                 )  
                               ),
                      ),
-                     
-                     
+                     #Tab panel : Family income 
                      tabPanel("Family Income Level", 
                               box(
                                 title = "Drinking Habits by Family Income Level", status = "success", solidHeader = TRUE,
@@ -221,6 +188,7 @@ tabItem(tabName = "home",
                                 )
                               )
                               ),
+                     #Tab Panel: Age Group
                      tabPanel("Age Group", 
                               box(
                                 title = "Drinking Habits by Age Group", status = "warning", solidHeader = TRUE,
@@ -245,6 +213,7 @@ tabItem(tabName = "home",
                                 )
                               )
                      ),
+                     #Tab panel: Employment
                      tabPanel("Employment Status", 
                               box(
                                 title = "Drinking Habits by Employment Status", status = "danger", solidHeader = TRUE,
@@ -269,7 +238,8 @@ tabItem(tabName = "home",
                                 )
                               )
                      ),
-                     tabPanel("Employment Status", 
+                     #tabpanel: Marital
+                     tabPanel("Marital Status", 
                               box(
                                 title = "Drinking Habits by Marital Status", status = "info", solidHeader = TRUE,
                                 collapsible = TRUE,
@@ -290,7 +260,24 @@ tabItem(tabName = "home",
                                 ),
                                 style = "margin-bottom: 250px;", # Move the next row down by 250px
                                 )
-                              )
+                              ),
+                     #tab panel: Frequency Data table
+                     tabPanel("FrequencyDist2018 Data Table",
+                       box(
+                         title = "FrequencyDist2018 Data Table", status = "danger", solidHeader = TRUE,
+                         collapsible = TRUE,width = 12,
+                         sidebarLayout(
+                           sidebarPanel(
+                             checkboxGroupInput("show_vars", "Columns in FrequencyDist2018 to show:",
+                                                names(frequencyDist2018), selected = names(frequencyDist2018))
+                             
+                           ),
+                           mainPanel(DT::dataTableOutput("mytable1"))
+                         )
+                       )
+                     )
+                     
+
                      ),
           ),
 ), #Second page end
@@ -523,28 +510,11 @@ server <- function(input, output, session) {
     )
   })
   # IHME Data Table
-  IHME2 = IHME[sample(nrow(IHME), 1000), ]
+  frequencyDist20182 = frequencyDist2018[sample(nrow(frequencyDist2018), 83), ]
   output$mytable1 <- DT::renderDataTable({
-    DT::datatable(IHME2[, input$show_vars, drop = FALSE])
+    DT::datatable(frequencyDist20182[, input$show_vars, drop = FALSE])
     })
 
-  # Test page Marital radar
-  #output$MaritalR <- renderPlot({
-    # Check if at least one row is selected
-    #if (length(input$category_row1) < 1) {
-    #  return(validate(need("Select at least one row.", type = "error")))
-    #}
-    
-    # Check if at least three columns are selected
-    #if (length(input$category_col1) < 3) {
-    #  return(validate(need("Select at least three columns.", type = "error")))
-    #}
-    #create_radarchart(
-    #  subsetMarital, max_value = 72000, min_value = 500, 
-    #  selected_rows = input$category_row1,
-    #  selected_columns = input$category_col1
-    #)
-  #})
   
 }
 
