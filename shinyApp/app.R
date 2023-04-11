@@ -133,30 +133,12 @@ tabItem(tabName = "home",
         h2("U.S. Drinking Habits Overall"), 
         # alcohol gallon consumption map Tab Box
         fluidRow(
-          column(
-            width = 12,
-            box(
-              title = "Alcohol Consumption",
-              status = "primary",
-              solidHeader = TRUE,
-              collapsible = TRUE,
-              width = 12,
-              fluidRow(
-                column(
-                  width = 2,
-                  selectInput(
-                    "selected_state",
-                    "Select a State:",
-                    choices = unique(alcoholByStateGallons$state)
-                  ),
-                  textOutput("selected_state_consumption")
-                ),
-                column(
-                  width = 8,
-                  plotOutput("usPlot", height = 300, width = 1100)
-                )
-              )
-            )
+          box(
+            title = "Gallons Consumed per Person per Year", status = "danger", solidHeader = TRUE,
+            collapsible = TRUE,
+            # alcohol gallon consumption map, region
+            plotOutput("usPlot", height = 300, width = 1100),
+            width = 600
           )
         ),
         
@@ -412,9 +394,9 @@ tabItem(tabName = "home",
 server <- function(input, output, session) {
   # Home page
   output$interactive_map_home <- renderPlotly({
-    data <-IHME
-    var <- "val"
-    create_fresh_map_home(data, var)
+    data <-alcoholByStateGallons
+    var <- "alcoholConsumptionGallons"
+    create_fresh_map(data, var)
   })
   #Second page alcohol consumption map tab box 4
   output$tabset4Selected <- renderText({
@@ -423,15 +405,10 @@ server <- function(input, output, session) {
   
   # First page alcohol consumption map
   output$usPlot <- renderPlot({
-    selected_state_data <- alcoholByStateGallons[alcoholByStateGallons$state == input$selected_state, ]
-    choropleth_map(selected_state_data, "alcoholConsumptionGallons")
+    choropleth_map(alcoholByStateGallons, "alcoholConsumptionGallons")
   })
   
-  output$selected_state_consumption <- renderText({
-    selected_state_data <- alcoholByStateGallons[alcoholByStateGallons$state == input$selected_state, ]
-    consumption <- selected_state_data$alcoholConsumptionGallons
-    paste("Alcohol Consumption (Gallons per Person per Year) in", input$selected_state, ":", consumption)
-  })
+
   
   # First page region pie chart
   output$regionChart <- renderPlot({
@@ -540,7 +517,7 @@ server <- function(input, output, session) {
     )
   })
   output$approvalBox2 <- renderInfoBox({
-    infoBox(
+    infoBox(  
       "Approval", "80%", icon = icon("thumbs-up", lib = "glyphicon"),
       color = "yellow", fill = TRUE
     )
