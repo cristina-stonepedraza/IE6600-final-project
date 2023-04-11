@@ -8,7 +8,7 @@ library(ggplot2)
 
 # Function
 incomeHabits <- function(habit){
-  ggplot(subsetEmp_rotated, aes(x = Type, y = .data[[habit]], fill = Type)) + 
+  ggplot(subsetFamIncome_rotated, aes(x = Type, y = .data[[habit]], fill = Type)) + 
     geom_bar(stat = "identity") +
     labs(title = "Regional Frequency by Habit\n", x = "\nFamily Income", y = "Frequency\n") +
     theme_classic() + 
